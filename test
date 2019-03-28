@@ -1,0 +1,139 @@
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
+
+<!--objedt-fit（IE対策）-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/object-fit-images/3.2.3/ofi.js"></script>
+<script>
+$(function() {
+    $(".click").click(function() {
+         $(this).toggleClass("clicked");
+     });
+});
+
+<!--objedt-fit（IE対策）-->
+$(function () {
+objectFitImages('img.sampleimg');
+});
+
+$(function() {
+    var $fixElement = $('#tab_area_move'); // 追従する要素
+    var $stopElement = $('#bottom_tab_area');
+    var baseFixPoint = $fixElement.offset().top; // 追従する要素の初期位置
+    var baseStopPoint = $stopElement.offset().top; // 追従する要素の初期位置
+    var fixClass = 'is-fixed'; // 追従時に付与するclass
+
+    // 要素が追従する処理
+    function fixFunction() {
+        var windowScrolltop = $('html, body').scrollTop();
+        // スクロールが初期位置を通過しているとき
+        if(windowScrolltop >= baseFixPoint) {
+            $fixElement.addClass(fixClass);
+        } else {
+            $fixElement.removeClass(fixClass);
+        }
+
+	if(baseStopPoint - windowScrolltop <= 600){
+		$fixElement.removeClass(fixClass);
+				}
+
+	if($('#tab4').prop('checked')){
+		$fixElement.removeClass(fixClass);
+				}
+	if($('#tab5').prop('checked')){
+		$fixElement.removeClass(fixClass);
+				}
+
+
+    }
+
+    $(window).on('load scroll', function() {
+        fixFunction();
+    });
+});
+
+
+$(document).ready(function(){
+    var dmy = window.location.href;
+    var dmy_b = dmy.split('#');
+    var id = dmy_b[1];
+
+ if( id != null){
+    var dmy_c = id.substr(0, 2);
+
+    if( dmy_c == 'iv'){
+        $('#tab1').replaceWith('<input id="tab1" type="radio" name="tab_btn">');
+        $('#tab2').attr('checked', 'checked');
+   }
+}
+
+
+    console.log(dmy_b);
+});
+
+/*
+$(function(){
+    $('#dg_support_move').on('click', function(){
+        var targetTop = $('#dg_support').offset().top;
+        $('html,body').animate({
+            scrollTop: targetTop
+        }, 500);
+        return false;
+    });
+});
+*/
+
+$(function(){
+  $('a[href^="#"]').click(function(){
+    var speed = 500;
+    var href= $(this).attr("href");
+    var target = $(href == "#" || href == "" ? 'html' : href);
+    var position = target.offset().top - 97;
+    $("html, body").animate({scrollTop:position}, speed, "swing");
+    return false;
+  });
+});
+
+$(function(){
+  $('#tab4').on('change',function(){
+    if($(this).prop('checked')){
+      var targetBuytop = $('#kounyu').offset().top + 24;
+      $('html,body').animate({scrollTop:targetBuytop}, 500, "swing");
+      return false;
+    }
+  });
+  $('#tab5').on('change',function(){
+    if($(this).prop('checked')){
+      var targetBuytop = $('#kounyu').offset().top + 24;
+      $('html,body').animate({scrollTop:targetBuytop}, 500, "swing");
+      return false;
+    }
+  });
+});
+
+
+$(document).ready(function(){
+				if($('#tab1').prop('checked')){
+ 					$('#sup_move a').attr('href','#dg_support');
+ 					$('#bra_move a').attr('href','#dg_bracket');
+ 					$('#han_move a').attr('href','#dg_hanger');
+				}
+
+				if($('#tab2').prop('checked')){
+ 					$('#sup_move a').attr('href','#iv_support');
+ 					$('#bra_move a').attr('href','#iv_bracket');
+ 					$('#han_move a').attr('href','#iv_hanger');
+				}
+
+				if($('#tab3').prop('checked')){
+ 					$('#sup_move a').attr('href','#si_support');
+ 					$('#bra_move a').attr('href','#si_bracket');
+ 					$('#han_move a').attr('href','#si_hanger');
+				}
+   });
+
+
+
+</script>
