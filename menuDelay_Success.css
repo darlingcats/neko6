@@ -1,0 +1,93 @@
+#snavi{
+    width: 200px;
+    padding: 85px 10px 10px;
+    background-color: #f2f2f2;
+    background-image: url("../img/background/bg_snavi.gif");
+    background-repeat: no-repeat;
+    background-position: center 10px;
+    margin: 0 auto 27px;
+}
+
+#snavi > ul > li{
+    font-size: 14px;
+    line-height: 150%;
+    background-color: #fff;
+    padding: 3px 2px;
+    border-top: 2px solid #e0e0e0;
+}
+
+#snavi>ul{
+    position: relative;
+    z-index: 999;
+}
+
+#snavi>ul>li{
+    position: relative;
+}
+
+#snavi li ul{
+    width: 300px;
+    height: auto;
+    overflow: hidden;
+    position: absolute;
+    top: -10px;
+    left: 98%;
+    z-index: 9998;
+    display: none;
+    border-radius: 2px;
+}
+#snavi li ul.second{
+    display: none;
+}
+#snavi li.hover ul.second{
+    display: block;
+}
+#snavi li ul.visible{
+}
+#snavi li.hover ul.visible{
+}
+
+#snavi li ul li{
+    padding: 0;
+    border-top: 1px solid #cce6d2;
+    position: relative;
+    z-index: 9999;
+}
+#snavi li ul li:nth-of-type(1){
+    border: none;
+}
+
+#snavi li a{
+    display: block;
+    color: #424242;
+    padding: 5px 4px 5px 18px;
+    background-color: #fff;
+    background-image: url("../img/common/arrow_snavi.gif");
+    background-repeat: no-repeat;
+    background-position: 4px center;
+    text-decoration: none;
+    border-radius: 2px;
+}
+#snavi li a:hover,
+#snavi li.current a{
+    color: #fff;
+    background-color: #50a965;
+    background-image: url("../img/common/arrow_snavi_on.png");
+}
+
+#snavi li ul li a{
+    color: #fff;
+    padding: 8px 6px 8px 20px;
+    background-color: #50a965;
+    background-image: url("../img/common/arrow_snavi_on.png");
+    background-position: 6px center;
+    border-radius: 0;
+}
+
+#snavi li ul li a:hover{
+    background-color: #3D844E;
+}
+
+#snavi li.first{
+    border: none;
+}
