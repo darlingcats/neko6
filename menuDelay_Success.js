@@ -15,7 +15,7 @@ function menuShowDelay (element, delayTime) {
         sethover = setTimeout(function(){
           targetOn.addClass(hoverClass);
           nowActive = manuElement.index(targetOn);
-        }, hoverTime);
+        }, hoverTime);//出現時間を変えられる//
       } else {
         if(targetOn.hasClass(hoverClass)){
           clearTimeout(setleave);
@@ -50,5 +50,5 @@ function menuShowDelay (element, delayTime) {
   });
 }
 $(function(){
-  menuShowDelay($('#snavi > ul > li'), 500);
+  menuShowDelay($('#snavi > ul > li'), 300);
 });
