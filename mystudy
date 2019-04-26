@@ -1,0 +1,1428 @@
+<!--{*
+/*
+ * This file is part of EC-CUBE B2B
+ *
+ * Copyright(c) 2000-2014 LOCKON CO.,LTD. All Rights Reserved.
+ *
+ * http://www.lockon.co.jp/
+ *
+ * This program is NOT free software.
+ * LICENSE: See also LICENCE.txt file.
+ */
+*}-->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+<style type="text/css">
+<!--
+
+/*#header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}*/
+#header .h_right img{
+  margin: -5px 0 0 4px;
+}
+#header .h_right{
+  width: 100%;
+	height: 85px;
+}
+#header .h_right form{
+	width: 660px;
+}
+
+#header h1{
+	background-color: #fff;
+}
+#header a img{
+	margin: 0px;
+}
+#gnavi a img{
+	margin: 4px 4px 4px 0;
+}
+.h_top{
+  width: 1200px;
+  height: 85px;
+  display: flex;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.h_right_under {
+  display: flex;
+}
+
+.left {
+float: left;
+}
+
+.noborder	{
+		border: none;
+}
+.textleft	{
+		text-align: left;
+}
+.textright {
+		text-align: right;
+}
+
+.takumi_copy {
+  height: 25px;
+  background: #009844;
+  color: #fff;
+  line-height: 1.7;
+}
+
+
+.btn-cart {
+  position: relative;
+  display: inline-block;
+  padding: 8px 0px 5px 22px;
+  text-decoration: none;
+  color: #FFF;
+  background-image:url(https://www.takumi-probook.jp/user_data/packages/default/img/icon/carticon.png);
+  background-repeat:no-repeat;
+  background-position:left center;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.2);
+}
+
+.btn-cart:active {
+  /*押したとき*/
+  text-shadow: none;
+}
+
+
+.btnicon {
+ height:20px;
+ vertical-align:sub;
+ margin-right:2px;
+}
+
+
+
+.search_btn{
+display: block;
+width:32px;
+height:32px;
+background-image:url("https://52.199.68.47/user_data/packages/default/img/background/bg_search.gif");
+background-repeat: no-repeat;
+background-position: left center;
+background-size: 30px 30px;
+border:none;
+padding:0;
+}
+
+.toiawase {
+	float: right;
+	padding: 1px 6px;
+	margin-left: 10px;
+	background: #ccc;
+	border: 1px solid #333;
+	border-radius: 3px;
+}
+.toiawase span{
+  position: relative;
+  display: inline-block;
+  padding: 4px 3px 3px 20px;
+  background-image: url("https://52.199.68.47/user_data/packages/default/img/icon/icon_mail.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+	background-size: 16px;
+	color: #000;
+	font-size: 12px;
+}
+.guide {
+	float: right;
+	padding: 1px 6px;
+	margin-left: 10px;
+	background: #ccc;
+	border: 1px solid #333;
+	border-radius: 3px;
+}
+.guide span{
+  position: relative;
+  display: inline-block;
+  padding: 4px 3px 3px 18px;
+  background-image: url("https://52.199.68.47/user_data/packages/default/img/icon/icon_hatena.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+	background-size: 15px;
+	color: #000;
+	font-size: 12px;
+}
+
+#takumi_itsutsu {
+  width: 1200px;
+  margin: 0 auto;
+}
+.itsutsu {
+  display: inline-block;
+  width: 1200px;
+  height: 50px;
+  text-align: center;
+  text-decoration: none;
+  line-height: 50px;
+  outline: none;
+   position: relative;
+  /*-webkit-perspective: 300px;
+  perspective: 300px;*/
+}
+.itsutsu img {
+  margin: 5px;
+}
+.itsutsu span {
+  display: block;
+  position: absolute;
+  width: 1200px;
+  height: 50px;
+  border: 3px solid #009844;
+  text-align: center;
+  line-height: 50px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  pointer-events: none;
+}
+.itsutsu span:nth-child(1) {
+  background-color: #fff;
+  color: #fff;
+  -webkit-transform: rotateX(90deg);
+  -moz-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+  -webkit-transform-origin: 50% 50% -25px;
+  -moz-transform-origin: 50% 50% -25px;
+  transform-origin: 50% 50% -25px;
+}
+.itsutsu:active span:nth-child(1) {
+  background-color: #ffff00;
+  color: #fff;
+}
+.itsutsu span:nth-child(2) {
+  background-color: #009844;
+  color: #fff;
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+  -webkit-transform-origin: 50% 50% -25px;
+  -moz-transform-origin: 50% 50% -25px;
+  transform-origin: 50% 50% -25px;
+}
+.itsutsu:hover span:nth-child(1) {
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+}
+.itsutsu:hover span:nth-child(2) {
+  background-color: #009844;
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+}
+.itsutsu::before,
+.itsutsu::after {
+  position: absolute;
+  z-index: -1;
+  display: block;
+  content: '';
+}
+.itsutsu,
+.itsutsu::before,
+.itsutsu::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.menu_shinki {
+	float: left;
+	width: 100px;
+	height: 60px;
+	border-left: 2px solid #f15a24;
+	transition: .4s;
+	color: #f15a24;
+	text-align: center;
+	text-decoration: none;
+	position: relative;
+	line-height: 1.75em;
+	background-image: url(https://52.199.68.47/user_data/packages/default/img/icon/icon_shinki_1.png);
+	background-repeat: no-repeat;
+	background-position: 5px 27px;
+	background-size: 16px;
+  box-sizing: border-box;
+}
+.menu_shinki:hover{
+	background: #f15a24;
+	color: #fff;
+	background-image: url(https://52.199.68.47/user_data/packages/default/img/icon/icon_shinki_2.png);
+	background-repeat: no-repeat;
+	background-position: 5px 27px;
+	background-size: 16px;
+}
+.menu_shinki p {
+	font-size: 80%;
+	padding-top: 3px;
+}
+.menu_shinki span {
+	display: inline-block;
+	text-decoration: none;
+	font-size: 120%;
+	padding-left: 22px;
+}
+.menu_login {
+	float: left;
+	width: 100px;
+	height: 60px;
+	border-left: 1px dashed #009844;
+	transition: .4s;
+	color: #009844;
+	text-align: center;
+	text-decoration: none;
+	position: relative;
+	line-height: 1.75em;
+	background-image: url(https://52.199.68.47/user_data/packages/default/img/icon/icon_login_1.png);
+	background-repeat: no-repeat;
+	background-position: 5px 27px;
+	background-size: 16px;
+  box-sizing: border-box;
+}
+.menu_login:hover{
+	background: #009844;
+	color: #fff;
+	background-image: url(https://52.199.68.47/user_data/packages/default/img/icon/icon_login_2.png);
+	background-repeat: no-repeat;
+	background-position: 5px 27px;
+	background-size: 16px;
+}
+.menu_login p {
+	font-size: 80%;
+	padding-top: 3px;
+}
+.menu_login span {
+	display: inline-block;
+	text-decoration: none;
+	font-size: 120%;
+	padding-left: 22px;
+}
+
+.menu_mypage {
+	float: left;
+	width: 100px;
+	height: 60px;
+	text-align: center;
+	text-decoration: none;
+	border-left: 2px solid #009844;
+	transition: .4s;
+	color: #009844;
+	position: relative;
+  box-sizing: border-box;
+}
+.mypage_bg {
+  background: #fff;
+  background-image: url(https://52.199.68.47/user_data/packages/default/img/icon/myp_bg_1.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 50px;
+}
+.support_bg {
+  background: #fff;
+  background-image: url(https://52.199.68.47/user_data/packages/default/img/icon/sup_bg_1.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 50px;
+}
+.favorite_bg {
+  background: #fff;
+  background-image: url(https://52.199.68.47/user_data/packages/default/img/icon/favo_bg_1.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 50px;
+}
+.mypage_bg:hover,
+#head_menu_mypage>li.current a.mypage_bg {
+  background: #009844;
+	color: #fff;
+  background-image: url(https://52.199.68.47/user_data/packages/default/img/icon/myp_bg_2.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 50px;
+}
+.support_bg:hover,
+#head_menu_mypage>li.current a.support_bg {
+  background: #009844;
+	color: #fff;
+  background-image: url(https://52.199.68.47/user_data/packages/default/img/icon/sup_bg_2.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 50px;
+}
+.favorite_bg:hover,
+#head_menu_mypage>li.current a.favorite_bg {
+  background: #009844;
+	color: #fff;
+  background-image: url(https://52.199.68.47/user_data/packages/default/img/icon/favo_bg_2.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 50px;
+}
+.menu_mypage span {
+	width: 100px;
+	position: relative;
+	display: inline-block;
+	text-decoration: none;
+	font-size: 120%;
+	padding: 16px 0;
+}
+.menu_mypage::after {
+	position: absolute;
+  top: 38px;
+  bottom: 0;
+  right: 41px;
+  margin: auto;
+  content: "";
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 4px;
+  height: 4px;
+  border: 8px solid transparent;
+  border-top: 8px solid #009844;
+	transition: .4s;
+}
+.menu_mypage:hover::after {
+	border-top: 8px solid #fff;
+}
+#head_menu_mypage>li.current a.menu_mypage::after {
+	position: absolute;
+  top: 38px;
+  bottom: 0;
+  right: 41px;
+  margin: auto;
+  content: "";
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 4px;
+  height: 4px;
+  border: 8px solid transparent;
+  border-top: 8px solid #fff;
+	transition: .4s;
+}
+
+.menu_cart {
+	float: left;
+	width: 100px;
+	height: 60px;
+	border-left: 2px solid #009844;
+	transition: .4s;
+	color: #009844;
+	text-align: center;
+	position: relative;
+	line-height: 1.75em;
+	background-image: url(https://52.199.68.47/user_data/packages/default/img/icon/icon_cart_1.svg);
+	background-repeat: no-repeat;
+	background-position: 3px 13px;
+	background-size: 36px;
+  box-sizing: border-box;
+}
+.menu_cart:hover,
+#head_menu_mypage>li.current a.menu_cart {
+	background: #009844;
+	color: #fff;
+	background-image: url(https://52.199.68.47/user_data/packages/default/img/icon/icon_cart_2.svg);
+	background-repeat: no-repeat;
+	background-position: 3px 13px;
+	background-size: 36px;
+}
+.menu_cart span {
+	/*width: 100px;*/
+	position: relative;
+	display: inline-block;
+	text-decoration: none;
+	font-size: 120%;
+	padding: 11px 0 0 38px;
+}
+.menu_cart::after {
+	position: absolute;
+  top: 38px;
+  bottom: 0;
+  right: 41px;
+  margin: auto;
+  content: "";
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 4px;
+  height: 4px;
+  border: 8px solid transparent;
+  border-top: 8px solid #009844;
+	transition: .4s;
+}
+.menu_cart:hover::after {
+	border-top: 8px solid #fff;
+}
+.menu_cartbtn {
+	display: block;
+	width: 396px;
+	height: 36px;
+	text-align: center;
+	margin: 0px auto;
+	padding: 6px;
+	background: linear-gradient(to top, #ff9a50, #ff6405);
+	border: 4px double #fff;
+	/*border-radius: 1px;
+	box-shadow: 0 0 0 6px #ff6405;*/
+	box-sizing: border-box;
+	text-decoration: none;
+	transition: .8s;
+}
+.menu_cartbtn:hover {
+	background: linear-gradient(to bottom, #ff9a50, #ff6405);
+	/*box-shadow: 0 0 0 6px #ff823c;*/
+}
+
+#head_menu_mypage>li.current a.menu_cart::after {
+	position: absolute;
+  top: 38px;
+  bottom: 0;
+  right: 41px;
+  margin: auto;
+  content: "";
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 4px;
+  height: 4px;
+  border: 8px solid transparent;
+  border-top: 8px solid #fff;
+	transition: .4s;
+}
+.cart_num {
+	width: 22px;
+	height: 20px;
+	color: #f15a24;
+	position: absolute;
+	top: 6px;
+	left: 13px;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	background: #fff;
+	border-radius: 2px;
+	overflow: hidden;
+}
+
+
+.navbar_select {
+  position: relative;
+  /*Don't really need this just for demo styling*/
+
+  /*float: left;*/
+  min-width: 175px;
+  /*margin: 0 0 0 10px;*/
+}
+
+/* IE11 hide native button (thanks Matt!) */
+select::-ms-expand {
+display: none;
+}
+
+.navbar_select:after {
+  content: '<>';
+  font: 15px "Consolas", monospace;
+  color: #333;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  right: 4px;
+  /*Adjust for position however you want*/
+
+  top: 15px;
+  padding: 0 0 0 2px;
+  border-bottom: 1px solid #999;
+  /*left line */
+
+  position: absolute;
+  pointer-events: none;
+}
+
+.navbar_select select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* Add some styling */
+
+  display: block;
+  width: 100%;
+  max-width: 190px;
+  height: 34px;
+  float: right;
+  margin: 8px 0px;
+  padding: 1px 24px 0 8px;
+  font-size: 14px;
+  line-height: 1.75;
+  color: #333;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #cccccc;
+  -ms-word-break: normal;
+  word-break: normal;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	border-right: none;
+}
+.search {
+  width: 100%;
+	position: relative;
+	margin: 8px auto;
+}
+.searchbox {
+	width: 100%;
+	height: 34px;
+	padding-left: 5px;
+	font-size: 14px;
+	box-sizing: border-box;
+}
+.searchicon {
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	top: 1px;
+	right: 1px;
+}
+
+.carttop {
+	height: 44px;
+	background-image: url("https://52.199.68.47/user_data/packages/default/img/icon/icon_cart.png");
+	background-repeat: no-repeat;
+	background-position: 6px 7px;
+}
+.point5_click {
+	width: 140px;
+	height: 20px;
+	float: right;
+	border: 2px dotted;
+	border-radius: 15px;
+	font-size: 14px;
+	margin: 10px 10px 0 -80px;
+	background: #ffff00;
+	line-height: 1.5em;
+}
+
+.user_name {
+	float:left;
+	width: 100%;
+	height: 60px;
+	background: rgba(0,152,68,0.1);
+}
+.user_name p {
+	line-height: 2.2em;
+	height: 30px;
+	padding-left: 10px;
+	border-bottom: 1px dashed rgba(0,152,68,0.3);
+}
+.menu_point {
+	float:left;
+	min-width: 200px;
+	height: 60px;
+  border-left: 1px solid #009844;
+  box-sizing: border-box;
+	background: rgba(241,90,36,0.1);
+}
+.menu_point p {
+	line-height: 2.2em;
+	height: 30px;
+	padding-left: 10px;
+	border-bottom: 1px dashed rgba(0,152,68,0.3);
+}
+.menu_point span.point {
+	font-size: 120%;
+	font-weight: bold;
+  margin-right: 5px;
+}
+
+#head_menu_login {
+  min-width: 200px;
+  /*margin: 0 auto;*/
+  padding: 0;
+  display: flex;
+	box-sizing: border-box;
+}
+#head_menu_mypage {
+  min-width: 400px;
+  /*margin: 0 auto;*/
+  padding: 0;
+  display: flex;
+	border-right: 2px solid #009844;
+	box-sizing: border-box;
+}
+#head_menu_mypage li {
+  list-style: none;
+}
+ul.mypage_list li a,
+ul.support_list li a,
+ul.favorite_list li a {
+  display: inline-block;
+  width: 396px;
+  height: 45px;
+  /*text-align: center;*/
+  color: #009844;
+  font-size: 16px;
+  line-height: 2.8;
+  background: #fff;
+  text-decoration: none;
+  /*border-right: 2px solid #eee;*/
+  box-sizing: border-box;
+	padding: 0px 20px;
+}
+ul.cart_list li a {
+  display: inline-block;
+  width: 396px;
+  height: 60px;
+  /*text-align: center;*/
+  color: #009844;
+  font-size: 16px;
+  line-height: 2.8;
+  background: #fff;
+  text-decoration: none;
+  /*border-right: 2px solid #eee;*/
+  box-sizing: border-box;
+	padding: 0px 20px;
+}
+#head_menu_mypage li ul.mypage_list {
+  width: 400px;
+  display: none;
+  margin-left: 0px;
+  position: absolute;
+	border: 2px solid #009844;
+	z-index: 9999;
+  top: 84px;
+	box-sizing: border-box;
+	box-shadow: 2px 2px 4px 0 rgba(0,0,0,0.5)
+}
+#head_menu_mypage li ul.support_list {
+  width: 400px;
+  display: none;
+  margin-left: -100px;
+  position: absolute;
+	border: 2px solid #009844;
+	z-index: 9999;
+	top: 84px;
+	box-sizing: border-box;
+	box-shadow: 2px 2px 4px 0 rgba(0,0,0,0.5)
+}
+#head_menu_mypage li ul.favorite_list {
+  width: 400px;
+  display: none;
+  background: #fff;
+  margin-left: -200px;
+  position: absolute;
+	border: 2px solid #009844;
+	z-index: 9999;
+	top: 84px;
+	box-sizing: border-box;
+	box-shadow: 2px 2px 4px 0 rgba(0,0,0,0.5)
+}
+#head_menu_mypage li ul.cart_list {
+  width: 400px;
+  display: none;
+  margin-left: -300px;
+  position: absolute;
+	border: 2px solid #009844;
+	z-index: 9999;
+	top: 84px;
+	box-sizing: border-box;
+	box-shadow: 2px 2px 4px 0 rgba(0,0,0,0.5)
+}
+#head_menu_mypage li ul.cart_list img {
+	float: left;
+	width: 30px;
+	margin: 8px 5px 0 0;
+}
+#head_menu_mypage li ul.cart_list strong {
+	font-size: 80%;
+	height: 30px;
+	float: left;
+	width: 200px;
+	overflow: hidden;
+	line-height: 1.4;
+	padding: 8px 0;
+}
+#head_menu_mypage li ul.cart_list p {
+	font-size: 80%;
+	text-align: right;
+}
+
+#head_menu_mypage > li li:hover > a {/*layer-2*/
+  color: #fff;
+  background: #009844;
+}
+/*#head_menu_mypage li ul li a {
+  border-top: 1px solid #eee;
+}*/
+
+.material-icons {
+	float: left;
+	line-height: 1.5em;
+	margin-right: 3px;
+	font-size: 28px;
+}
+
+.info_bar {
+  width: 1200px;
+  height: 50px;
+  display: flex;
+  margin: 0 auto;
+}
+
+.far,.fas {
+	width: 28px;
+	float: left;
+	margin-right: 3px;
+	/*font-weight: normal;
+	font-style: normal;*/
+	text-align: center;
+	font-size: 23px;
+	line-height: 1.8em;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-feature-settings: 'liga';
+	-webkit-font-smoothing: antialiased;
+}
+
+div.poplink {
+    z-index: 9998;
+}
+div.poplink.pc022 {
+    width:800px;
+}
+div.poplink.pc022 div.poplink_suggest {
+    width:200px;
+}
+div.poplink.pc022 div.poplink_search {
+    width:500px;
+}
+#search_box 	{
+		margin-bottom:60px;
+		}
+
+#header { 
+  top: 0; 
+  z-index: 9999;
+}
+
+/*fixedsticky*/
+.fixedsticky {
+	position: -webkit-sticky;
+	position: -moz-sticky;
+	position: -ms-sticky;
+	position: -o-sticky;
+	position: sticky;
+}
+/* When position: sticky is supported but native behavior is ignored */
+.fixedsticky-withoutfixedfixed .fixedsticky-off,
+.fixed-supported .fixedsticky-off {
+	position: static;
+}
+.fixedsticky-withoutfixedfixed .fixedsticky-on,
+.fixed-supported .fixedsticky-on {
+	position: fixed;
+}
+.fixedsticky-dummy {
+	display: none;
+}
+.fixedsticky-on + .fixedsticky-dummy {
+	display: block;
+}
+
+.entry a:link {color:#ffffff;} /*未訪問のリンクの色*/
+.entry a:visited {color:#ffffff;} /*訪問済みのリンクの色*/
+.entry a:hover {color:#ffffff; background:#d22e19;} /*カーソルが乗っているリンクの色*/
+.entry a:active {color:#ffffff;} /*クリック中のリンクの色*/
+
+
+
+-->
+
+</style>
+  <script src="https://52.199.68.47/user_data/packages/default/js/fixedfixed.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$( '#header' ).fixedsticky();
+</script>
+<script>
+$(function() {
+	var nav = $('#head_menu_mypage');
+	$('li', nav).mouseover(function(e) {
+		$('ul', this).stop().slideDown('fast');
+	})
+	.mouseout(function(e) {
+		$('ul', this).stop().slideUp(100);
+	});
+});
+
+$(window).load(function() {
+	$('#head_menu_mypage>li').hover(
+		function(){
+			$(this).addClass('current');
+			/*$(this).children('ul').addClass('visible');*/
+		},
+		function(){
+			$(this).removeClass('current');
+			/*$(this).children('ul').removeClass('visible');*/
+		}
+	);
+});
+
+</script>
+
+
+<!--▼HEADER-->
+<div id="header" class="fixedsticky">
+  <div class="h_top" itemscope="" itemtype="http://schema.org/Organization">
+			<div class="logo left" itemscope="" itemtype="http://schema.org/Organization" style="min-width:190px;">
+        <a href="http://52.199.68.47/" itemprop="url">
+					<img itemprop="logo" src="/user_data/packages/default/img/common/logo2.svg" alt="匠の一冊" height="85">
+				</a>
+      </div>
+    <div class="h_right" id="header_login_area">
+			<div class="takumi_copy">
+			建築関連専門通販サイト　施工業者（プロ）に選ばれて続けて20年！商品点数約<span style="font-weight:bold;">26,000</span>点！
+      <span style="float:right; padding-right:5px;">15:00までのご注文で即日発送！</span>
+			</div>
+      <div class="h_right_under">
+				<div class="user_name">
+					<p><!-- <span>タクミインタラクティブ株式会社</span> --></p>
+					<p style="border-bottom:none;"><!-- <span>平林 彰史様</span> --></p>
+    		</div>
+
+				<ul id="head_menu_login">
+					<li>
+						<a href="<!--{$smarty.const.HTTPS_URL}-->entry/kiyaku.php" class="menu_shinki">
+								<p>初めてのお客様は</p>
+								<span>新規登録</span>
+						</a>
+					</li>
+					<li>
+						<a href="<!--{$smarty.const.HTTPS_URL}-->mypage/login.php" class="menu_login">
+								<p>登録済のお客様は</p>
+								<span>ログイン</span>
+						</a>
+					</li>
+        </ul>
+
+				<div class="menu_point" style="display:none;">
+					<p><span>所持ポイント</span></p>
+					<p style="border-bottom:none;"><span class="point">10,000</span>pt</p>
+    		</div>
+
+				<ul id="head_menu_mypage">
+					<li>
+						<a href="<!--{$smarty.const.HTTPS_URL}-->mypage/login.php" class="menu_mypage mypage_bg">
+								<span>マイページ</span>
+						</a>
+						<ul class="child mypage_list" style="height:274px;">
+    					<li><a href="<!--{$smarty.const.HTTPS_URL}-->mypage/"><i class="material-icons">history</i>購入履歴・再注文</a></li>
+    					<li><a href="<!--{$smarty.const.HTTPS_URL}-->mypage/estimate_list.php"><i class="material-icons">view_list</i>お見積書一覧</a></li>
+    					<li><a href="<!--{$smarty.const.HTTPS_URL}-->mypage/change.php"><i class="material-icons">create</i>会員登録内容変更</a></li>
+    					<li><a href="<!--{$smarty.const.HTTPS_URL}-->mypage/delivery.php"><i class="material-icons">local_shipping</i>お届け先追加・変更</a></li>
+    					<li><a href="<!--{$smarty.const.HTTPS_URL}-->contact/payc.php"><i class="material-icons">payment</i>お支払情報変更申し込み</a></li>
+    					<li><a href="<!--{$smarty.const.HTTPS_URL}-->user_data/pointexchange.php"><i class="material-icons">card_giftcard</i>ポイント交換</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="http://52.199.68.47/login.php" class="menu_mypage support_bg">
+								<span>サポート</span>
+						</a>
+						<ul class="child support_list" style="height:184px;">
+							<li><a href="<!--{$smarty.const.HTTPS_URL}-->first/"><i class="far fa-question-circle"></i>初めての方</a></li>
+							<li><a href="<!--{$smarty.const.HTTPS_URL}-->abouts/"><i class="far fa-building"></i>会社案内</a></li>
+							<li><a href="<!--{$smarty.const.HTTPS_URL}-->pay/"><i class="fas fa-coins"></i>お支払い方法</a></li>
+							<li><a href="<!--{$smarty.const.HTTPS_URL}-->contact/"><i class="far fa-envelope"></i>問い合わせ</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="http://52.199.68.47/login.php" class="menu_mypage favorite_bg">
+								<span>お気に入り</span>
+						</a>
+						<ul class="child favorite_list">
+              <form name="form1" id="form1" method="post" action="?">
+                  <input type="hidden" name="<!--{$smarty.const.TRANSACTION_ID_NAME}-->" value="<!--{$transactionid}-->" />
+                  <input type="hidden" name="order_id" value="" />
+                  <input type="hidden" name="pageno" value="<!--{$tpl_pageno}-->" />
+                  <input type="hidden" name="mode" value="" />
+                  <input type="hidden" name="product_id" value="" />
+                  <h3><!--{$tpl_subtitle|h}--></h3>
+
+                  <!--{if $tpl_linemax > 0}-->
+
+                  <p><span class="attention"><!--{$tpl_linemax}-->件</span>のお気に入りがあります。</p>
+                  <div class="paging">
+                      <!--▼ページナビ-->
+                      <!--{$tpl_strnavi}-->
+                      <!--▲ページナビ-->
+                  </div>
+
+                  <table summary="お気に入り">
+                      <col width="15%" />
+                      <col width="20%" />
+                      <col width="45%" />
+                      <tr>
+                          <th class="alignC">削除</th>
+                          <th class="alignC">商品画像</th>
+                          <th class="alignC">商品名</th>
+                          <!-- <th class="alignC"><!--{$smarty.const.SALE_PRICE_TITLE}-->(税込)</th> -->
+                      </tr>
+                      <!--{section name=cnt loop=$arrFavorite}-->
+                      <!--{assign var=product_id value="`$arrFavorite[cnt].product_id`"}-->
+                      <tr>
+                          <td class="alignC"  style="vertical-align: middle;">
+                              <a href="javascript:eccube.setModeAndSubmit('delete_favorite','product_id','<!--{$product_id|h}-->');">
+                            削除</a>
+                          </td>
+                          <td class="alignC">
+                              <a href="<!--{$smarty.const.P_DETAIL_URLPATH}--><!--{$product_id|u}-->&parents_code=<!--{$arrFavorite[cnt].parents_code|u}-->">
+                                  <img src="<!--{$smarty.const.IMAGE_SAVE_URLPATH}--><!--{$arrFavorite[cnt].main_large_image|sfNoImageMainList|h}-->" style="max-width: 65px;max-height: 65px;" alt="<!--{$arrFavorite[cnt].name|h}-->" />
+                          </td>
+                          <td style="vertical-align: middle;">
+                              <a href="<!--{$smarty.const.P_DETAIL_URLPATH}--><!--{$product_id|u}-->&parents_code=<!--{$arrFavorite[cnt].parents_code|u}-->">
+                                  <!--{$arrFavorite[cnt].name|h}--></a>
+                          </td>
+                          <!--
+                                  <td class="alignR sale_price">
+                                      <!--{if $smarty.const.PRICE_VIEW_TYPE == 0 || ($smarty.const.PRICE_VIEW_TYPE == 2 && $tpl_login === true)}-->
+                          <span class="price">
+                                          <!--{if $arrFavorite[cnt].price02_min_inctax == $arrFavorite[cnt].price02_max_inctax}-->
+                              <!--{$arrFavorite[cnt].price02_min_inctax|number_format}-->
+                              <!--{else}-->
+                              <!--{$arrFavorite[cnt].price02_min_inctax|number_format}-->～<!--{$arrFavorite[cnt].price02_max_inctax|number_format}-->
+                              <!--{/if}-->円
+                                      </span>
+                          <!--{/if}-->
+                          </td>
+                    -->
+                      </tr>
+                      <!--{/section}-->
+                  </table>
+                  <br />
+
+                  <!--{else}-->
+                  <p>お気に入りが登録されておりません。</p>
+                  <!--{/if}-->
+              </form>
+            </ul>
+					</li>
+					<li>
+						<a href="<!--{$smarty.const.HTTPS_URL}-->cart/" class="menu_cart">
+								<p class="cart_num">0</p>
+								<span>カート</span>
+						</a>
+						<ul class="child cart_list">
+							<li>
+							<a href="https://www.takumi-probook.jp/products/detail.php?product_id=4418021&parents_code=441-8021" alt="2倍筋かい">
+								<img src="https://www.takumi-probook.jp/upload/save_image/401-6225-500.jpg" width="30px">
+								<strong>山喜産業【コーススレッド徳用箱(ユニクロ)】W-25全ネジ～他</strong>
+								<p>数量：1</p>
+							</a>
+							</li>
+							<li>
+							<a href="https://www.takumi-probook.jp/products/detail.php?product_id=4418021&parents_code=441-8021" alt="2倍筋かい">
+								<img src="https://www.takumi-probook.jp/upload/save_image/401-6225-500.jpg" width="30px">
+								<strong>山喜産業【コーススレッド徳用箱(ユニクロ)】W-25全ネジ～他</strong>
+								<p>数量：1</p>
+							</a>
+							</li>
+							<li>
+							<a href="https://www.takumi-probook.jp/products/detail.php?product_id=4418021&parents_code=441-8021" alt="2倍筋かい">
+								<img src="https://www.takumi-probook.jp/upload/save_image/401-6225-500.jpg" width="30px">
+								<strong>山喜産業【コーススレッド徳用箱(ユニクロ)】W-25全ネジ～他</strong>
+								<p>数量：1</p>
+							</a>
+							</li>
+							<div style="border-top:2px dashed #ccc; text-align:center; line-height:2.5; height:40px; background:#fff;">
+								<span>合計<span style="font-size:120%; font-weight:bold;">3</span>点</span>
+								<span><span style="font-size:120%; font-weight:bold;">10,000</span>円</span>
+							</div>
+							<a href="<!--{$smarty.const.HTTPS_URL}-->cart/" class="menu_cartbtn">
+								<span style="text-decoration:none; color:#fff;">カートの中を見る</span>
+							</a>
+						</ul>
+					</li>
+				</ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="gnavi" style=" margin-bottom: 10px;">
+      <div class="info_bar">
+				<a href="#" style="min-width:224px;">
+					<img src="https://52.199.68.47/user_data/packages/default/img/button/btn_kantan.png" class="overimg">
+				</a>
+				<a href="<!--{$smarty.const.HTTPS_URL}-->products/list.php?mode=search" style="min-width:124px;">
+					<img src="https://52.199.68.47/user_data/packages/default/img/button/btn_shousai.png" alt="詳細検索"" class="overimg">
+				</a>
+
+			<form action="/products/list.php" name="search_form" method="get" style="display:flex; width:100%;">
+				<div class="input-group-addon navbar_select">
+					<label>
+						<select name="tree" class="form-control">
+							<option value="">カテゴリ指定なし</option>
+							<option value="AA">基礎関連</option>
+							<option value="AB">構造金物</option>
+							<option value="AC">耐震・制震</option>
+							<option value="AD">釘・ネジ</option>
+							<option value="AE">接着剤</option>
+							<option value="AF">養生・保護材</option>
+							<option value="AG">防水材</option>
+							<option value="AH">手摺</option>
+							<option value="AI">棚柱・収納</option>
+							<option value="AJ">内装部材</option>
+							<option value="AK">水廻り</option>
+							<option value="AL">物干し</option>
+							<option value="AM">アルミ型材</option>
+							<option value="AN">外装部材</option>
+							<option value="AO">照明</option>
+							<option value="AP">表札</option>
+							<option value="AQ">ポスト</option>
+							<option value="AR">換気部材</option>
+							<option value="AS">水切り・防鼠付水切り</option>
+							<option value="AT">現場用品</option>
+							<option value="AU">断熱材</option>
+							<option value="AV">充電工具</option>
+							<option value="AW">エアー工具</option>
+							<option value="AX">電動工具</option>
+							<option value="AY">電動工具刃物</option>
+							<option value="AZ">電動工具アクセサリ</option>
+							<option value="BA">エンジン工具</option>
+							<option value="BB">墨出器・距離計</option>
+							<option value="BC">測定・検査</option>
+							<option value="BD">大工道具</option>
+							<option value="BE">電設工具</option>
+							<option value="BF">作業工具</option>
+							<option value="BG">作業用品</option>
+						</select>
+					</label>
+				</div>
+
+				<dl class="search">
+					<dt>
+						<input id="search_target" type="text" name="name" value="" placeholder="キーワード入力" autocomplete="off" class="searchbox">
+						<div class="poplink pc022 poplink_invisible" style="position: absolute; left: 0px; visibility:hidden;">
+							<div class="poplink_suggest poplink_invisible">
+								<div class="word poplink_invisible"></div>
+								<div class="word poplink_invisible"></div>
+								<div class="word poplink_invisible"></div>
+								<div class="word poplink_invisible"></div>
+								<div class="word poplink_invisible"></div>
+							</div>
+							<div class="poplink_search poplink_invisible">
+								<div class="header">商品検索</div>
+								<div class="item">
+									<a>
+										<div class="item_left">
+											<div class="image_box"><img></div>
+										</div>
+										<div class="item_right">
+											<div class="title"></div>
+											<div class="summary"></div>
+											<div class="any1"></div>
+											<div class="any2"></div>
+											<div class="any3"></div>
+										</div>
+										<div class="clear"></div>
+									</a>
+									<div class="userarea"></div>
+								</div>
+								<div class="item">
+									<a>
+										<div class="item_left">
+											<div class="image_box"><img></div>
+										</div>
+										<div class="item_right">
+											<div class="title"></div>
+											<div class="summary"></div>
+											<div class="any1"></div>
+											<div class="any2"></div>
+											<div class="any3"></div>
+										</div>
+										<div class="clear"></div>
+									</a>
+									<div class="userarea"></div>
+								</div>
+								<div class="item">
+									<a>
+										<div class="item_left">
+											<div class="image_box"><img></div>
+										</div>
+										<div class="item_right">
+											<div class="title"></div>
+											<div class="summary"></div>
+											<div class="any1"></div>
+											<div class="any2"></div>
+											<div class="any3"></div>
+										</div>
+										<div class="clear"></div>
+									</a>
+									<div class="userarea"></div>
+								</div>
+							</div>
+							<div class="poplink_recommend poplink_invisible">
+								<div class="header">おすすめ</div>
+								<div class="item">
+									<a>
+										<div class="item_left">
+											<div class="image_box"><img></div>
+										</div>
+										<div class="item_right">
+											<div class="title"></div>
+											<div class="summary"></div>
+											<div class="any1"></div>
+											<div class="any2"></div>
+											<div class="any3"></div>
+										</div>
+										<div class="clear"></div>
+									</a>
+									<div class="userarea"></div>
+								</div>
+								<div class="item">
+									<a>
+										<div class="item_left">
+											<div class="image_box"><img></div>
+										</div>
+										<div class="item_right">
+											<div class="title"></div>
+											<div class="summary"></div>
+											<div class="any1"></div>
+											<div class="any2"></div>
+											<div class="any3"></div>
+										</div>
+										<div class="clear"></div>
+									</a>
+									<div class="userarea"></div>
+								</div>
+								<div class="item">
+									<a>
+										<div class="item_left">
+											<div class="image_box"><img></div>
+										</div>
+										<div class="item_right">
+											<div class="title"></div>
+											<div class="summary"></div>
+											<div class="any1"></div>
+											<div class="any2"></div>
+											<div class="any3"></div>
+										</div>
+										<div class="clear"></div>
+									</a>
+									<div class="userarea"></div>
+								</div>
+							</div>
+						</div>
+					</dt>
+					<dd class="searchicon">
+						<input type="submit" value="" class="search_btn">
+					</dd>
+				</dl>
+			</form>
+      </div>
+	</div>
+</div>
+<!--
+<div>
+<table id="QuickOrder" data-row-number="10">
+        <tbody><tr>
+            <th width="20%" class="alignC">注文番号</th>
+            <th width="15%" class="alignC quantityAmount">数量</th>
+            <th width="65%" class="alignC">商品名</th>
+        </tr>
+        <tr class="quickOrderTemplate">
+            <td class="productCodeInput">
+                <input type="tel" name="product[row-number][code]" pattern="[0-9]*" value="" class="alignR productCode quickorder-input">
+                <input type="hidden" name="product[row-number][id]" value="">
+            </td>
+            <td class="numberInput">
+                <input name="product[row-number][quantity]" type="tel" pattern="[0-9]*" value="" class="alignR productQuantity quickorder-input" onblur="">
+            </td>
+            <td>
+                <div class="productInfoArea"></div>
+                <div style="clear: both"></div>
+                <label class="productCodeErrorArea errorArea"></label>
+                <label class="quantityErrorArea errorArea"></label>
+            </td>
+        </tr>
+                <tr>
+            <td class="productCodeInput">
+                <input type="tel" name="product[1][code]" pattern="[0-9]*" value="" class="alignR productCode quickorder-input">
+                <input type="hidden" name="product[1][id]" value="">
+            </td>
+            <td class="numberInput">
+                <input name="product[1][quantity]" type="tel" pattern="[0-9]*" value="" class="alignR productQuantity quickorder-input">
+            </td>
+            <td>
+                <div class="productInfoArea"></div>
+                <div style="clear: both"></div>
+                <label class="productCodeErrorArea errorArea"></label>
+                <label class="quantityErrorArea errorArea"></label>
+            </td>
+        </tr>
+                <tr>
+            <td class="productCodeInput">
+                <input type="tel" name="product[2][code]" pattern="[0-9]*" value="" class="alignR productCode quickorder-input">
+                <input type="hidden" name="product[2][id]" value="">
+            </td>
+            <td class="numberInput">
+                <input name="product[2][quantity]" type="tel" pattern="[0-9]*" value="" class="alignR productQuantity quickorder-input">
+            </td>
+            <td>
+                <div class="productInfoArea"></div>
+                <div style="clear: both"></div>
+                <label class="productCodeErrorArea errorArea"></label>
+                <label class="quantityErrorArea errorArea"></label>
+            </td>
+        </tr>
+                <tr>
+            <td class="productCodeInput">
+                <input type="tel" name="product[3][code]" pattern="[0-9]*" value="" class="alignR productCode quickorder-input">
+                <input type="hidden" name="product[3][id]" value="">
+            </td>
+            <td class="numberInput">
+                <input name="product[3][quantity]" type="tel" pattern="[0-9]*" value="" class="alignR productQuantity quickorder-input">
+            </td>
+            <td>
+                <div class="productInfoArea"></div>
+                <div style="clear: both"></div>
+                <label class="productCodeErrorArea errorArea"></label>
+                <label class="quantityErrorArea errorArea"></label>
+            </td>
+        </tr>
+                <tr>
+            <td class="productCodeInput">
+                <input type="tel" name="product[4][code]" pattern="[0-9]*" value="" class="alignR productCode quickorder-input">
+                <input type="hidden" name="product[4][id]" value="">
+            </td>
+            <td class="numberInput">
+                <input name="product[4][quantity]" type="tel" pattern="[0-9]*" value="" class="alignR productQuantity quickorder-input">
+            </td>
+            <td>
+                <div class="productInfoArea"></div>
+                <div style="clear: both"></div>
+                <label class="productCodeErrorArea errorArea"></label>
+                <label class="quantityErrorArea errorArea"></label>
+            </td>
+        </tr>
+                <tr>
+            <td class="productCodeInput">
+                <input type="tel" name="product[5][code]" pattern="[0-9]*" value="" class="alignR productCode quickorder-input">
+                <input type="hidden" name="product[5][id]" value="">
+            </td>
+            <td class="numberInput">
+                <input name="product[5][quantity]" type="tel" pattern="[0-9]*" value="" class="alignR productQuantity quickorder-input">
+            </td>
+            <td>
+                <div class="productInfoArea"></div>
+                <div style="clear: both"></div>
+                <label class="productCodeErrorArea errorArea"></label>
+                <label class="quantityErrorArea errorArea"></label>
+            </td>
+        </tr>
+                <tr>
+            <td class="productCodeInput">
+                <input type="tel" name="product[6][code]" pattern="[0-9]*" value="" class="alignR productCode quickorder-input">
+                <input type="hidden" name="product[6][id]" value="">
+            </td>
+            <td class="numberInput">
+                <input name="product[6][quantity]" type="tel" pattern="[0-9]*" value="" class="alignR productQuantity quickorder-input">
+            </td>
+            <td>
+                <div class="productInfoArea"></div>
+                <div style="clear: both"></div>
+                <label class="productCodeErrorArea errorArea"></label>
+                <label class="quantityErrorArea errorArea"></label>
+            </td>
+        </tr>
+                <tr>
+            <td class="productCodeInput">
+                <input type="tel" name="product[7][code]" pattern="[0-9]*" value="" class="alignR productCode quickorder-input">
+                <input type="hidden" name="product[7][id]" value="">
+            </td>
+            <td class="numberInput">
+                <input name="product[7][quantity]" type="tel" pattern="[0-9]*" value="" class="alignR productQuantity quickorder-input">
+            </td>
+            <td>
+                <div class="productInfoArea"></div>
+                <div style="clear: both"></div>
+                <label class="productCodeErrorArea errorArea"></label>
+                <label class="quantityErrorArea errorArea"></label>
+            </td>
+        </tr>
+                <tr>
+            <td class="productCodeInput">
+                <input type="tel" name="product[8][code]" pattern="[0-9]*" value="" class="alignR productCode quickorder-input">
+                <input type="hidden" name="product[8][id]" value="">
+            </td>
+            <td class="numberInput">
+                <input name="product[8][quantity]" type="tel" pattern="[0-9]*" value="" class="alignR productQuantity quickorder-input">
+            </td>
+            <td>
+                <div class="productInfoArea"></div>
+                <div style="clear: both"></div>
+                <label class="productCodeErrorArea errorArea"></label>
+                <label class="quantityErrorArea errorArea"></label>
+            </td>
+        </tr>
+                <tr>
+            <td class="productCodeInput">
+                <input type="tel" name="product[9][code]" pattern="[0-9]*" value="" class="alignR productCode quickorder-input">
+                <input type="hidden" name="product[9][id]" value="">
+            </td>
+            <td class="numberInput">
+                <input name="product[9][quantity]" type="tel" pattern="[0-9]*" value="" class="alignR productQuantity quickorder-input">
+            </td>
+            <td>
+                <div class="productInfoArea"></div>
+                <div style="clear: both"></div>
+                <label class="productCodeErrorArea errorArea"></label>
+                <label class="quantityErrorArea errorArea"></label>
+            </td>
+        </tr>
+                <tr>
+            <td class="productCodeInput">
+                <input type="tel" name="product[10][code]" pattern="[0-9]*" value="" class="alignR productCode quickorder-input">
+                <input type="hidden" name="product[10][id]" value="">
+            </td>
+            <td class="numberInput">
+                <input name="product[10][quantity]" type="tel" pattern="[0-9]*" value="" class="alignR productQuantity quickorder-input">
+            </td>
+            <td>
+                <div class="productInfoArea"></div>
+                <div style="clear: both"></div>
+                <label class="productCodeErrorArea errorArea"></label>
+                <label class="quantityErrorArea errorArea"></label>
+            </td>
+        </tr>
+            </tbody></table>
+</div>
+            -->
+            <!--
+        <div id="takumi_itsutsu">
+          <a href="https://www.takumi-probook.jp/user_data/takumi5.php" class="itsutsu">
+    				<span style="color:#009844;">
+    					<img src="/user_data/packages/default/img/banner/banner_top_2.svg" alt="【建築資材の通信販売!「匠の一冊」5つのポイント】1.すぐに届く! 2.バラで買える! 3.送料無料! 4.現場に送れる! 5.土曜日出荷OK！" style="width:900px;">
+    					<p class="point5_click">詳しくはクリック！</p>
+    				</span>
+    				<span>
+    					<img src="/user_data/packages/default/img/banner/banner_top_1.svg" alt="【建築資材の通信販売!「匠の一冊」5つのポイント】1.すぐに届く! 2.バラで買える! 3.送料無料! 4.現場に送れる! 5.土曜日出荷OK！" style="width:530px;">
+    				</span>
+    			</a>
+        </div>
+        -->
+
+<!--▲HEADER-->
