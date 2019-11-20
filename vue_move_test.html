@@ -1,0 +1,201 @@
+<!-- 開発バージョン、便利なコンソールの警告が含まれています -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lity/1.6.6/lity.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lity/1.6.6/lity.js"></script>
+
+<style type="text/css">
+  <!--
+
+#undercolumn_entry {
+	position: relative;
+}
+svg {
+  width: 144px;
+  height: 5000px;
+  margin: 0 auto;
+  position: absolute;
+  z-index: 1;
+  top: 338px;
+  left: 403px;
+}
+line {
+  cursor: grab;
+}
+  -->
+</style>
+
+<div id="undercolumn">
+  <div id="undercolumn_entry">
+
+		<svg @mousemove="touchmove($event)" @mouseup="touchend($event)" @mouseleave="touchend($event)">
+				<line v-for="line in list_line" @mousedown="touchstart($event)" :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" :stroke-width="line.width" :stroke="line.stroke"/>
+</svg>
+
+    <div id="title">
+      <h2><span>パイオランテープ謝恩感謝セール</span></h2>
+    </div>
+    <div class="topimg">
+      <img src="<!--{$TPL_URLPATH}-->img/banner/pyolan_g_bunner.png" alt="令和最初のダイケンセール" width="900 height=" 260" />
+	  <p style="text-align: right;">※ホワイトの取扱いはありません。</p>
+    </div>
+
+    <h3>パイオランクロステープ養生用 50㎜×25m Y-09GR50</h3>
+    <p class="chara">
+      <span style="font-size:120%;">養生ならこれ！</span>
+      スプレー塗装、刷毛塗り塗装時の養生用テープです。
+    </p>
+
+    <div class="dfloat">
+      <div class="main-image">
+        <a href="http://www.takumi-probook.jp/products/detail.php?product_id=3187138&parents_code=318-7138"><strong>【パイオランクロステープ養生用】Y-09GR50</strong></a>
+        <a href="http://www.takumi-probook.jp/products/detail.php?product_id=3187138&parents_code=318-7138"><img src="https://www.takumi-probook.jp/upload/save_image/318-7138-500.jpg" width="300px" /></a>
+      </div>
+    </div>
+    <div>
+      <ul>
+        <li>●粘着力の高い養生テープの人気ナンバーワンのパイオランテープの謝恩感謝セール！！</li>
+      </ul>
+    </div>
+    <table class="tablebox">
+      <tr>
+        <th>注文番号</th>
+        <th>サイズ</th>
+        <th>入数</th>
+        <th class="bara">バラ購入価格</th>
+        <th class="case">ケース購入価格</th>
+        <th class="tokka"">特価</th>
+        <th>数量/注文</th>
+      </tr>
+      <tr>
+        <td>318-7150</td>
+        <td>50㎜×25m</td>
+        <td>30巻/ケース</td>
+        <td>
+          <p class="pricealways">240円/巻</p>
+        </td>
+        <td>
+          <p class="pricecase">205円/巻</p>
+        </td>
+        <td>
+          <p class="price">200円<span style="font-size: 75%; font-weight: normal; color: #000;">（4ケース）</span>/巻</p>
+        </td>
+        <td>
+          <form name="form1" id="form1" method="post" action="<!--{$smarty.const.P_DETAIL_URLPATH}-->1221130">
+            <input type="hidden" name="<!--{$smarty.const.TRANSACTION_ID_NAME}-->" value="<!--{$transactionid}-->" />
+            <input type="hidden" name="mode" value="cart" />
+            <input type="hidden" name="product_class_id" value="325456" />
+
+            <input name="product_id0" type="hidden" value="1221130" />
+            <input name="product_class_id0" type="hidden" value="325456" />
+            <input name="quantity0" type="hidden" value="" style="width:50px;" class="textright" />
+
+            <input name="product_id1" type="hidden" value="1221160" />
+            <input name="product_class_id1" type="hidden" value="325458" />
+            <input name="quantity1" type="hidden" value="" style="width:50px;" class="textright" />
+
+            <input name="product_id2" type="hidden" value="1221145" />
+            <input name="product_class_id2" type="hidden" value="348830" />
+            <input name="quantity2" type="text" value="" style="width:50px;" class="textright" />
+            台
+
+            <input type="hidden" name="parents_code" value="122-1130" />
+            <input type="hidden" name="ref_url" value="user_data/daiken_g.php" />
+            <p class="btn cartbtn overimg"><a href="javascript:void(document.form1.submit())" class="btn-cart" style="color:#fff;text-decoration:none" alt="カートの中に入れる">カートへ</a></p>
+          </form>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
+
+<script>
+	
+	new Vue({
+	el : "svg",
+	data : {
+    list_line : [
+	{	// ×のパーツ（そのいち）
+          x1 : 72,
+          y1 : -5000,
+          x2 : 72,
+          y2 : 30,
+          stroke : "rgba(57,179,74,0.8)",
+          width : 142,
+        },
+		{	// ×のパーツ（そのいち）
+          x1 : 72,
+          y1 : -3,
+          x2 : 72,
+          y2 : 25,
+          stroke : "rgb(57,179,74)",
+          width : 5,
+        },
+		{	// ×のパーツ（そのいち）
+          x1 : 84,
+          y1 : 10,
+          x2 : 72,
+          y2 : 23,
+          stroke : "rgb(57,179,74)",
+          width : 5,
+        },
+		{	// ×のパーツ（そのいち）
+          x1 : 60,
+          y1 : 10,
+          x2 : 72,
+          y2 : 23,
+          stroke : "rgb(57,179,74)",
+          width : 5,
+        },
+    ],
+    // 前回のクリック座標
+    prev_pos : {
+    	x : 0,
+      y : 0,
+    },
+    // 押下中だったらtrue
+    is_mousedown : false,
+  },
+  methods : {
+  	// 
+  	touchstart : function(e){
+      this.is_mousedown = true;
+    	console.log("touch start:%d,%d", e.offsetX, e.offsetY);
+      this.prev_pos.x = e.offsetX;
+      this.prev_pos.y = e.offsetY;
+    },
+    touchmove : function(e){
+    	// 押下中だったら
+    	if(this.is_mousedown){
+      	// 前回座標との差分を算出
+      	let moved_x = e.offsetX - this.prev_pos.x;
+        let moved_y = e.offsetY - this.prev_pos.y;
+        
+        // 全要素に差分を適用
+        for(let line of this.list_line){
+          //　line.x1 += moved_x;
+          //　line.x2 += moved_x;
+          line.y1 += moved_y;
+          line.y2 += moved_y;
+        }
+        
+        // 前回のクリック座標を更新
+        this.prev_pos.x = e.offsetX;
+        this.prev_pos.y = e.offsetY;
+      }
+    },
+    touchend : function(e){
+    	this.is_mousedown = false;
+    	console.log("touch end");
+    }
+  }
+});
+</script>
+
+https://fuwafuwac.com/?p=748
+https://codepen.io/sirlancelot/pen/NNGYEP?editors=0010
+https://qiita.com/sasaplus1/items/95f8477e5468d95b5f0b
