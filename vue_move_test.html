@@ -29,7 +29,7 @@ line {
   <div id="undercolumn_entry">
 
 		<svg @mousemove="touchmove($event)" @mouseup="touchend($event)" @mouseleave="touchend($event)">
-				<line v-for="line in list_line" @mousedown="touchstart($event)" :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" :stroke-width="line.width" :stroke="line.stroke"/>
+				<line v-for="line in list_line" @mousedown="touchstart($event)" :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" :stroke-width="line.width" :stroke="line.stroke" :stroke-dasharray="line.dasharray"/>
 </svg>
 
     <div id="title">
@@ -37,24 +37,27 @@ line {
     </div>
     <div class="topimg">
       <img src="<!--{$TPL_URLPATH}-->img/banner/pyolan_g_bunner.png" alt="令和最初のダイケンセール" width="900 height=" 260" />
-	  <p style="text-align: right;">※ホワイトの取扱いはありません。</p>
+	  <p style="text-align: right;">※クリアタイプの取扱いはありません。</p>
     </div>
 
     <h3>パイオランクロステープ養生用 50㎜×25m Y-09GR50</h3>
     <p class="chara">
       <span style="font-size:120%;">養生ならこれ！</span>
-      スプレー塗装、刷毛塗り塗装時の養生用テープです。
+      人気ナンバーワンのパイオランテープの謝恩感謝セール！！
     </p>
 
     <div class="dfloat">
       <div class="main-image">
         <a href="http://www.takumi-probook.jp/products/detail.php?product_id=3187138&parents_code=318-7138"><strong>【パイオランクロステープ養生用】Y-09GR50</strong></a>
-        <a href="http://www.takumi-probook.jp/products/detail.php?product_id=3187138&parents_code=318-7138"><img src="https://www.takumi-probook.jp/upload/save_image/318-7138-500.jpg" width="300px" /></a>
+        <a href="http://www.takumi-probook.jp/products/detail.php?product_id=3187138&parents_code=318-7138"><img src="https://www.takumi-probook.jp/upload/save_image/318-7138-500.jpg" class="object-fit-img" /></a>
       </div>
     </div>
-    <div>
-      <ul>
-        <li>●粘着力の高い養生テープの人気ナンバーワンのパイオランテープの謝恩感謝セール！！</li>
+    <div style="float: right; width: 50%;">
+      <ul id="ex_list">
+		<li>50㎜×25m</li>
+		<li>ポリエチレンクロス製養生テープのパイオニア！</li>
+			<li>スプレー塗料、刷毛塗り塗装時の養生用。</li>
+			<li>フランジの開先養生や養生シートの固定に。</li>
       </ul>
     </div>
     <table class="tablebox">
@@ -97,7 +100,7 @@ line {
             <input name="product_id2" type="hidden" value="1221145" />
             <input name="product_class_id2" type="hidden" value="348830" />
             <input name="quantity2" type="text" value="" style="width:50px;" class="textright" />
-            台
+            巻
 
             <input type="hidden" name="parents_code" value="122-1130" />
             <input type="hidden" name="ref_url" value="user_data/daiken_g.php" />
@@ -121,7 +124,7 @@ line {
     list_line : [
 	{	// ×のパーツ（そのいち）
           x1 : 72,
-          y1 : -5000,
+          y1 : -10000,
           x2 : 72,
           y2 : 30,
           stroke : "rgba(57,179,74,0.8)",
@@ -151,6 +154,23 @@ line {
           stroke : "rgb(57,179,74)",
           width : 5,
         },
+		{	// ×のパーツ（そのいち）
+          x1 : 72,
+          y1 : -10000,
+          x2 : 72,
+          y2 : -9950,
+          stroke : "rgba(255,0,0,0.8)",
+          width : 142,
+        },
+		{	// ×のパーツ（そのいち）
+          x1 : 72,
+          y1 : -10000,
+          x2 : 72,
+          y2 : 30,
+          stroke : "rgba(0,0,0,0.02)",
+		  dasharray : "4 10",
+          width : 142,
+        },
     ],
     // 前回のクリック座標
     prev_pos : {
@@ -163,6 +183,7 @@ line {
   methods : {
   	// 
   	touchstart : function(e){
+		  
       this.is_mousedown = true;
     	console.log("touch start:%d,%d", e.offsetX, e.offsetY);
       this.prev_pos.x = e.offsetX;
@@ -194,6 +215,9 @@ line {
     }
   }
 });
+</script>
+<script>
+	objectFitImages('img.object-fit-img');
 </script>
 
 https://fuwafuwac.com/?p=748
