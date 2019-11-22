@@ -124,13 +124,13 @@ line {
     list_line : [
 	{	// ×のパーツ（そのいち）
           x1 : 72,
-          y1 : -10000,
+          y1 : -8000,
           x2 : 72,
           y2 : 30,
           stroke : "rgba(57,179,74,0.8)",
           width : 142,
         },
-		{	// ×のパーツ（そのいち）
+		{	// ×のパーツ（そのに）
           x1 : 72,
           y1 : -3,
           x2 : 72,
@@ -138,7 +138,7 @@ line {
           stroke : "rgb(57,179,74)",
           width : 5,
         },
-		{	// ×のパーツ（そのいち）
+		{	// ×のパーツ（そのさん）
           x1 : 84,
           y1 : 10,
           x2 : 72,
@@ -146,7 +146,7 @@ line {
           stroke : "rgb(57,179,74)",
           width : 5,
         },
-		{	// ×のパーツ（そのいち）
+		{	// ×のパーツ（そのし）
           x1 : 60,
           y1 : 10,
           x2 : 72,
@@ -154,17 +154,17 @@ line {
           stroke : "rgb(57,179,74)",
           width : 5,
         },
-		{	// ×のパーツ（そのいち）
+		{	// ×のパーツ（そのご）
           x1 : 72,
-          y1 : -10000,
+          y1 : -8000,
           x2 : 72,
-          y2 : -9950,
+          y2 : -7950,
           stroke : "rgba(255,0,0,0.8)",
           width : 142,
         },
-		{	// ×のパーツ（そのいち）
+		{	// ×のパーツ（そのろく）
           x1 : 72,
-          y1 : -10000,
+          y1 : -8000,
           x2 : 72,
           y2 : 30,
           stroke : "rgba(0,0,0,0.02)",
@@ -185,16 +185,16 @@ line {
   	touchstart : function(e){
 		  
       this.is_mousedown = true;
-    	console.log("touch start:%d,%d", e.offsetX, e.offsetY);
-      this.prev_pos.x = e.offsetX;
-      this.prev_pos.y = e.offsetY;
+    	console.log("touch start:%d,%d", e.clientX, e.clientY);
+      this.prev_pos.x = e.clientX;
+      this.prev_pos.y = e.clientY;
     },
     touchmove : function(e){
     	// 押下中だったら
     	if(this.is_mousedown){
       	// 前回座標との差分を算出
-      	let moved_x = e.offsetX - this.prev_pos.x;
-        let moved_y = e.offsetY - this.prev_pos.y;
+      	let moved_x = e.clientX - this.prev_pos.x;
+        let moved_y = e.clientY - this.prev_pos.y;
         
         // 全要素に差分を適用
         for(let line of this.list_line){
@@ -205,8 +205,8 @@ line {
         }
         
         // 前回のクリック座標を更新
-        this.prev_pos.x = e.offsetX;
-        this.prev_pos.y = e.offsetY;
+        this.prev_pos.x = e.clientX;
+        this.prev_pos.y = e.clientY;
       }
     },
     touchend : function(e){
