@@ -25,13 +25,14 @@ var searchLabel02 = /入数\/\r/; //入数+改行
 var searchLabel02val = '8mm';
 
 if (rtType == 1) {
-  alert("検索した文字列の列幅を変更します\r\n\r\n検索する文字列 ：  " + objTxtbox01.text + "\r\n列幅 ：  " + objTxtbox02.text, "処理終了");
+  alert("検索した文字列の列幅を変更します" + "\r\n\r\n" +
+  "検索する文字列 ： " + objTxtbox01.text + "\r\n" +
+  "列幅 ： " + objTxtbox02.text, "処理終了");
 
   for (x = 0; x < sel.textFrames.length; x++) {
     var widths = [];
     for (y = 0; y < sel.textFrames[x].tables.length; y++) {
-      var w = sel.textFrames[x].tables[y].columns.length;
-      if (w > 0) {
+      if (sel.textFrames[x].tables[y].columns.length > 0) {
         if (sel.textFrames[x].tables[y].label == lab) {
           app.selection = sel.textFrames[x].tables[y];
           var R0 = sel.textFrames[x].tables[y].rows[0].cells.length; //ヘッダ1行目
