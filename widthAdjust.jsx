@@ -85,8 +85,7 @@ if (rtType == 1) {
     if (sel.constructor.name === "Cell") {
       sel = sel.parent;
     }
-    app
-      .doScript(function () {
+    app.doScript(function () {
         var C = sel.columns;
         var txfWidth = (function () {
           var g = sel.parent.geometricBounds;
