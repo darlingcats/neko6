@@ -6,64 +6,102 @@ var n = 0;
 //　ダイアログ作成
 var objDlg = new Window("dialog", "検索文字列で列幅変更", [0, 0, 350, 220]);
 //　テキストを追加
-var objStText01 = objDlg.add("statictext", [20, 25, 350, 45], "検索する文字列");
-var objStText02 = objDlg.add("statictext", [20, 95, 350, 115], "列幅の数値");
+var objStText01 = objDlg.add("statictext", [
+	20, 
+	25, 
+	350, 
+	45
+], "検索する文字列");
+var objStText02 = objDlg.add("statictext", [
+	20, 
+	95, 
+	350, 
+	115
+], "列幅の数値");
 //　テキストボックスを追加
-var objTxtbox01 = objDlg.add("edittext", [20, 50, 315, 75], "");
-var objTxtbox02 = objDlg.add("edittext", [20, 120, 315, 145], "");
+var objTxtbox01 = objDlg.add("edittext", [
+	20, 
+	50, 
+	315, 
+	75
+], "");
+var objTxtbox02 = objDlg.add("edittext", [
+	20, 
+	120, 
+	315, 
+	145
+], "");
 //ボタン
-objDlg.add("button", [340 - 145, 220 - 40, 340 - 95, 220 - 15], "実行", {name: "ok"});
-objDlg.add("button", [340 - 90, 220 - 40, 340 - 10, 220 - 15], "キャンセル", {name: "cancel"});
+objDlg.add("button", [
+  340 - 145,
+  220 - 40,
+  340 - 95,
+  220 - 15
+], "実行", {name: "ok"});
+objDlg.add("button", [
+  340 - 90,
+  220 - 40,
+  340 - 10,
+  220 - 15
+], "キャンセル", {name: "cancel"});
 //　ダイアログ表示
 objDlg.center();
 var rtType = objDlg.show();
 //　ダイアログボックスの戻り値から条件分岐して、値を表示
 
 var searchLabel01 = 'あたりの価格'; //あたりの価格
-var searchLabel01val = '12mm';
+var searchLabel01val = '12mm'; //列幅数値+単位
 var searchLabel02 = /入数\/\r/; //入数+改行
-var searchLabel02val = '8mm';
+var searchLabel02val = '8mm'; //列幅数値+単位
 
 if (rtType == 1) {
-  alert("検索した文字列の列幅を変更します" + "\r\n\r\n" +
-  "検索する文字列 ： " + objTxtbox01.text + "\r\n" +
-  "列幅 ： " + objTxtbox02.text, "処理終了");
+	alert("検索した文字列の列幅を変更します" + "\r\n\r\n" +
+	"検索する文字列 ： " + objTxtbox01.text + "\r\n" +
+	"列幅 ： " + objTxtbox02.text, "処理終了");
 
   for (x = 0; x < sel.textFrames.length; x++) {
     var widths = [];
     for (y = 0; y < sel.textFrames[x].tables.length; y++) {
       if (sel.textFrames[x].tables[y].columns.length > 0) {
         if (sel.textFrames[x].tables[y].label == lab) {
-          app.selection = sel.textFrames[x].tables[y];
-          var R0 = sel.textFrames[x].tables[y].rows[0].cells.length; //ヘッダ1行目
-          var R1 = sel.textFrames[x].tables[y].rows[1].cells.length; //ヘッダ2行目
-          var R2 = sel.textFrames[x].tables[y].rows[2].cells.length; //データ行のつもり
-          for (z = 0; z < sel.textFrames[x].tables[y].cells.length; z++) {
-            var resul = sel.textFrames[x].tables[y].cells[z].contents;
-            if (resul.search(searchLabel01) != -1) {
-              widths[z] = searchLabel01val;
-            }
-            if (resul.search(searchLabel02) != -1) {
-              widths[z] = searchLabel02val;
-            }
-            main(sel.textFrames[x].tables[y].cells[z], 2);
+          var myTable = app.selection = sel.textFrames[x].tables[y];
+          if (myTable.constructor.name == 'Table') {
+            for (w = 0; w < myTable.columns.length; w++) {
+              for (v = 0; v < myTable.rows.length; v++) {
+                var myCellName = w + ':' + v;
+                var myCellNamePre = w - 1 + ':' + v;
+                var myCell = myTable.cells.itemByName(myCellName);
+                var myCellPre = myTable.cells.itemByName(myCellNamePre);
+                var resul = myCell.contents;
+                if (resul.search(searchLabel01) != -1) {
+                  if (myCell.contents != myCellPre.contents) { //横結合セルだった場合（左隣の内容と同じだったら無視）
+                    widths[w] = searchLabel01val;
+                  }
+                }
+                if (resul.search(searchLabel02) != -1) {
+                  if (myCell.contents != myCellPre.contents) { //横結合セルだった場合（左隣の内容と同じだったら無視）
+                    widths[w] = searchLabel02val;
+                  }
+                }
 
-            if (objTxtbox01.text == "") { //空欄だった場合
-              continue;
-            }
-            if (resul.search(objTxtbox01.text) != -1) {
-              if (R0 != R1 && z > R0 - R1) {
-                var zz = z - 1;
-                widths[zz] = objTxtbox02.text;
-              } else {
-                widths[z] = objTxtbox02.text;
+                if (objTxtbox01.text == "") { //空欄だった場合
+                  continue;
+                }
+                if (resul.search(objTxtbox01.text) != -1) {
+                  if (myCell.contents != myCellPre.contents) { //横結合セルだった場合（左隣の内容と同じだったら無視）
+                    widths[w] = objTxtbox02.text;
+                  }
+                }
               }
             }
+            for (z = 0; z < myTable.cells.length; z++) {
+              main(sel.textFrames[x].tables[y].cells[z], 2);
+            }
+            n = sel.textFrames[x].tables[y].columnCount - 1;
+            widths[0] = "15mm";
+            //widths[n] = "21mm";
+            autoWid(widths);
           }
-          n = sel.textFrames[x].tables[y].columnCount - 1;
-          widths[0] = "15mm";
-          //widths[n] = "21mm";
-          autoWid(widths);
         }
       }
     }
@@ -85,7 +123,8 @@ if (rtType == 1) {
     if (sel.constructor.name === "Cell") {
       sel = sel.parent;
     }
-    app.doScript(function () {
+    app
+      .doScript(function () {
         var C = sel.columns;
         var txfWidth = (function () {
           var g = sel.parent.geometricBounds;
