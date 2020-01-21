@@ -3,7 +3,7 @@ function Main() {
   app.doScript("doMain()", ScriptLanguage.JAVASCRIPT, [], UndoModes.fastEntireScript);
 }
 function doMain() {
-  var sel = app.activeDocument;
+  var doc = app.activeDocument;
 
   //　ダイアログ作成
   var objDlg = new Window("dialog", "左上のセル内容を検索してスクリプトラベルを付与", [0, 0, 350, 220]);
@@ -28,25 +28,22 @@ function doMain() {
 
     //const startTime = Date.now(); // 開始時間
 
-    for (x = 0; x < sel.textFrames.length; x++) {
-      for (y = 0; y < sel.textFrames[x].tables.length; y++) {
-            var myTable = (app.selection = sel.textFrames[x].tables[y]);
-            if (myTable.constructor.name == "Table") {
-              for (w = 0; w < myTable.columns.length; w++) {
-                for (v = 0; v < myTable.rows.length; v++) {
-                  var myCellName = w + ":" + v; //対象セル座標
-                  var myCell = myTable.cells.itemByName(myCellName); //対象セル名
-                  var resul = myCell.contents;
-                  if (myTable.cells.itemByName("0:0").contents.search(objTxtbox01.text) != -1) {
-                      //alert(myTable.cells.itemByName('0:0').contents)
-                      myTable.label = objTxtbox02.text.toString();
-                    }
-                  }
-                }
+    for (x = 0; x < doc.textFrames.length; x++) {
+      for (y = 0; y < doc.textFrames[x].tables.length; y++) {
+        var myTable = (app.selection = doc.textFrames[x].tables[y]);
+        if (myTable.constructor.name == "Table") {
+          for (w = 0; w < myTable.columns.length; w++) {
+            for (v = 0; v < myTable.rows.length; v++) {
+              var myCellName = w + ":" + v; //対象セル座標
+              var myCell = myTable.cells.itemByName(myCellName); //対象セル名
+              if (myTable.cells.itemByName("0:0").contents.search(objTxtbox01.text) != -1) {
+                myTable.label = objTxtbox02.text.toString();
               }
+            }
+          }
+        }
       }
     }
-
 
     //const endTime = Date.now(); // 終了時間
 
