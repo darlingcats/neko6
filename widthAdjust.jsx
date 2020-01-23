@@ -33,15 +33,15 @@ function doMain() {
 
     const startTime = Date.now(); // 開始時間
 
-    for (x = 0; x < doc.textFrames.length; x++) {
+    for (var x = 0, xL = doc.textFrames.length; x < xL; x++) {
       var widths = [];
-      for (y = 0; y < doc.textFrames[x].tables.length; y++) {
+      for (var y = 0, yL = doc.textFrames[x].tables.length; y < yL; y++) {
         if (doc.textFrames[x].tables[y].columns.length > 0) {
           if (doc.textFrames[x].tables[y].label == lab) {
             var myTable = (app.selection = doc.textFrames[x].tables[y]);
             if (myTable.constructor.name == "Table") {
-              for (w = 0; w < myTable.columns.length; w++) {
-                for (v = 0; v < myTable.rows.length; v++) {
+              for (var w = 0, wL = myTable.columns.length; w < wL; w++) {
+                for (var v = 0, vL = myTable.rows.length; v < vL; v++) {
                   var myCellName = w + ":" + v; //対象セル座標
                   var myCellNamePre = w - 1 + ":" + v; //対象セル座標 - 1列
                   var myCell = myTable.cells.itemByName(myCellName); //対象セル名
@@ -73,9 +73,7 @@ function doMain() {
                   }
                 }
               }
-              for (z = 0; z < myTable.cells.length; z++) {
-                main(myTable.cells[z], 2);
-              }
+              main(myTable, 2);
               n = doc.textFrames[x].tables[y].columnCount - 1; //列幅を固定する列が決まっている場合
               widths[0] = "15mm";
               //widths[n] = "21mm";
@@ -84,9 +82,7 @@ function doMain() {
           }
           if (doc.textFrames[x].tables[y].label == lab2) {
             var myTable = (app.selection = doc.textFrames[x].tables[y]);
-            for (z = 0; z < myTable.cells.length; z++) {
-              main2(myTable.cells[z], 2);
-            }
+            main2(myTable, 2);
           }
         }
       }
@@ -95,9 +91,6 @@ function doMain() {
     //固定列幅
     function fixWid(widths) {
       var sel = doc.selection[0];
-      if (sel.constructor.name === "Cell") {
-        sel = sel.parent;
-      }
       var C = sel.columns;
       var txfWidth = (function() {
         var g = sel.parent.geometricBounds;
@@ -136,8 +129,8 @@ function doMain() {
     }
 
     //商品詳細表列幅
-    function main(doc, margin) {
-      var col = doc.columns;
+    function main(myTable, margin) {
+      var col = myTable.columns;
       for (var i = 0, iL = col.length; i < iL; i++) {
         var cel = col[i].cells;
         var ar = [];
@@ -150,6 +143,10 @@ function doMain() {
           if (cel[j].overflows) {
             while (cel[j].overflows) {
               cel[j].width += 1;
+              if (cel[j].width > 100) {
+                alert("内容に改行が入っている可能性があります");
+                return;
+              }
               if (cel[j].properties["lines"] !== undefined) {
                 break;
               }
@@ -161,19 +158,24 @@ function doMain() {
         }
         col[i].rightInset = col[i].leftInset = margin * 0.25;
         var padding = col[i].rightInset + col[i].leftInset;
-        col[i].width = Math.round(
-          ar.sort(function(a, b) {
-            return b > a;
-          })[0] +
-            padding +
-            0.75
-        );
+        try {
+          col[i].width = Math.round(
+            ar.sort(function(a, b) {
+              return b > a;
+            })[0] +
+              padding +
+              0.75
+          );
+        } catch (e) {
+          alert(e);
+          return;
+        }
       }
     }
 
     //メーカー名、商品名列幅
-    function main2(doc, margin) {
-      var col = doc.columns;
+    function main2(myTable, margin) {
+      var col = myTable.columns;
       for (var i = 0, iL = col.length; i < iL; i++) {
         var cel = col[i].cells;
         var ar = [];
@@ -186,6 +188,10 @@ function doMain() {
           if (cel[j].overflows) {
             while (cel[j].overflows) {
               cel[j].width += 1;
+              if (cel[j].width > 100) {
+                alert("内容に改行が入っている可能性があります");
+                return;
+              }
               if (cel[j].properties["lines"] !== undefined) {
                 break;
               }
