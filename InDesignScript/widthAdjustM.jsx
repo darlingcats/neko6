@@ -134,52 +134,52 @@ function doMain() {
 
     //商品詳細表列幅
     function widthAdj(inset, padd) {
-        var col = myTable.columns;
-        for (var i = 0, iL = col.length; i < iL; i++) {
-          var cel = col[i].cells;
-          var ar = [];
-          for (var j = 0, jL = cel.length; j < jL; j++) {
-            // if cell has no content
-            if (cel[j].texts[0].contents === "") {
-              continue;
-            }
-            // if cell overflows
-            if (cel[j].overflows) {
-              while (cel[j].overflows) {
-                cel[j].width += 1;
-                if (cel[j].width > 100) {
-                  alert("内容に改行が入っている可能性があります");
-                  return;
-                }
-                if (cel[j].properties["lines"] !== undefined) {
-                  break;
-                }
+      var col = myTable.columns;
+      for (var i = 0, iL = col.length; i < iL; i++) {
+        var cel = col[i].cells;
+        var ar = [];
+        for (var j = 0, jL = cel.length; j < jL; j++) {
+          // if cell has no content
+          if (cel[j].texts[0].contents === "") {
+            continue;
+          }
+          // if cell overflows
+          if (cel[j].overflows) {
+            while (cel[j].overflows) {
+              cel[j].width += 1;
+              if (cel[j].width > 100) {
+                alert("内容に改行が入っている可能性があります");
+                return;
+              }
+              if (cel[j].properties["lines"] !== undefined) {
+                break;
               }
             }
-            var os_start = cel[j].lines[0].insertionPoints[0].horizontalOffset;
-            var os_end = cel[j].lines[0].insertionPoints[-1].horizontalOffset;
-            ar.push(os_end - os_start);
           }
-          col[i].rightInset = col[i].leftInset = 2 * inset;
-          var padding = col[i].rightInset + col[i].leftInset;
-          try {
-            col[i].width = Math.round(
-              ar.sort(function(a, b) {
-                return b > a;
-              })[0] +
-                padding +
-                padd
-            );
-          } catch (e) {
-            alert(e);
-            return;
-          }
+          var os_start = cel[j].lines[0].insertionPoints[0].horizontalOffset;
+          var os_end = cel[j].lines[0].insertionPoints[-1].horizontalOffset;
+          ar.push(os_end - os_start);
+        }
+        col[i].rightInset = col[i].leftInset = 2 * inset;
+        var padding = col[i].rightInset + col[i].leftInset;
+        try {
+          col[i].width = Math.round(
+            ar.sort(function(a, b) {
+              return b > a;
+            })[0] +
+              padding +
+              padd
+          );
+        } catch (e) {
+          alert(e);
+          return;
         }
       }
-  
+    }
+
     //テキストフレームとテーブルの差を取得して列幅を振り分け
     function TableResize() {
-        var txfWidth, txfWidth2, g, tabWidth, tabWidth2, diffWidth, diffWidth2, taC, y, h, q, o;
+      var txfWidth, txfWidth2, g, tabWidth, tabWidth2, diffWidth, diffWidth2, taC, y, h, q, o;
       txfWidth = (function() {
         g = myTable.parent.geometricBounds;
         return g[3] - g[1];
