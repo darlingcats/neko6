@@ -33,21 +33,22 @@ function doMain() {
 
     const startTime = Date.now(); // 開始時間
 
-    for (var x = 0, xL = doc.textFrames.length; x < xL; x++) {
-      var widths = [];
-      for (var y = 0, yL = doc.textFrames[x].tables.length; y < yL; y++) {
+    var widths, x, xL, y, yL, myTable, w, v, myCellName, myCellNamePre, myCell, myCellPre, resul, resulPre;
+    for (x = 0, xL = doc.textFrames.length; x < xL; x++) {
+      widths = [];
+      for (y = 0, yL = doc.textFrames[x].tables.length; y < yL; y++) {
         if (doc.textFrames[x].tables[y].columns.length > 0) {
           if (doc.textFrames[x].tables[y].label == lab) {
-            var myTable = (app.selection = doc.textFrames[x].tables[y]);
+            myTable = (app.selection = doc.textFrames[x].tables[y]);
             if (myTable.constructor.name == "Table") {
-              for (var w = 0, wL = myTable.columns.length; w < wL; w++) {
-                for (var v = 0, vL = myTable.rows.length; v < vL; v++) {
-                  var myCellName = w + ":" + v; //対象セル座標
-                  var myCellNamePre = w - 1 + ":" + v; //対象セル座標 - 1列
-                  var myCell = myTable.cells.itemByName(myCellName); //対象セル名
-                  var myCellPre = myTable.cells.itemByName(myCellNamePre); //対象セル - 1列名
-                  var resul = myCell.contents;
-                  var resulPre = myCellPre.contents;
+              for (w = 0, wL = myTable.columns.length; w < wL; w++) {
+                for (v = 0, vL = myTable.rows.length; v < vL; v++) {
+                  myCellName = w + ":" + v; //対象セル座標
+                  myCellNamePre = w - 1 + ":" + v; //対象セル座標 - 1列
+                  myCell = myTable.cells.itemByName(myCellName); //対象セル名
+                  myCellPre = myTable.cells.itemByName(myCellNamePre); //対象セル - 1列名
+                  resul = myCell.contents;
+                  resulPre = myCellPre.contents;
                   if (resul.search(searchLabel01) != -1) {
                     if (resul != resulPre) {
                       //横結合セルだった場合（左隣の内容と同じだったら無視）
@@ -74,7 +75,7 @@ function doMain() {
                 }
               }
               main(myTable, 2);
-              n = doc.textFrames[x].tables[y].columnCount - 1; //列幅を固定する列が決まっている場合
+              n = myTable.columnCount - 1; //列幅を固定する列が決まっている場合
               widths[0] = "15mm";
               //widths[n] = "21mm";
               fixWid(widths);
