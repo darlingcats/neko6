@@ -33,23 +33,25 @@ function doMain() {
 
     //    const startTime = Date.now(); // 開始時間
 
-    for (x = 0; x < doc.textFrames.length; x++) {
-      for (y = 0; y < doc.textFrames[x].tables.length; y++) {
+    var x, xL, y, yL, myTable, w, wL, v, vL, myCellName, myCellNamePreW, 
+    myCellNamePreV, myCell, myCellPreW, myCellPreV, resul, resulPreW, resulPreV;
+    for (x = 0, xL = doc.textFrames.length; x < xL; x++) {
+      for (y = 0, yL = doc.textFrames[x].tables.length; y < yL; y++) {
         if (doc.textFrames[x].tables[y].columns.length > 0) {
           if (doc.textFrames[x].tables[y].label == lab) {
-            var myTable = (app.selection = doc.textFrames[x].tables[y]);
+            myTable = (app.selection = doc.textFrames[x].tables[y]);
             if (myTable.constructor.name == "Table") {
-              for (w = 0; w < myTable.columns.length; w++) {
-                for (v = 0; v < myTable.rows.length; v++) {
-                  var myCellName = w + ":" + v; //対象セル座標
-                  var myCellNamePreW = w - 1 + ":" + v; //対象セル座標 - 1列
-                  var myCellNamePreV = w + ":" + (v - 1); //対象セル座標 - 1行
-                  var myCell = myTable.cells.itemByName(myCellName); //対象セル名
-                  var myCellPreW = myTable.cells.itemByName(myCellNamePreW);
-                  var myCellPreV = myTable.cells.itemByName(myCellNamePreV);
-                  var resul = myCell.contents;
-                  var resulPreW = myCellPreW.contents;
-                  var resulPreV = myCellPreV.contents;
+              for (w = 0, wL = myTable.columns.length; w < wL; w++) {
+                for (v = 0, vL = myTable.rows.length; v < vL; v++) {
+                  myCellName = w + ":" + v; //対象セル座標
+                  myCellNamePreW = w - 1 + ":" + v; //対象セル座標 - 1列
+                  myCellNamePreV = w + ":" + (v - 1); //対象セル座標 - 1行
+                  myCell = myTable.cells.itemByName(myCellName); //対象セル名
+                  myCellPreW = myTable.cells.itemByName(myCellNamePreW);
+                  myCellPreV = myTable.cells.itemByName(myCellNamePreV);
+                  resul = myCell.contents;
+                  resulPreW = myCellPreW.contents;
+                  resulPreV = myCellPreV.contents;
 
                   if (objBtn01.value == true) {
                     if (myCell.rowSpan > 1) {
