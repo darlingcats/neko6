@@ -28,14 +28,15 @@ function doMain() {
 
     //const startTime = Date.now(); // 開始時間
 
-    for (x = 0; x < doc.textFrames.length; x++) {
-      for (y = 0; y < doc.textFrames[x].tables.length; y++) {
-        var myTable = (app.selection = doc.textFrames[x].tables[y]);
+    var x, xL, y, yL, myTable, w, wL, v, vL, myCellName, myCell;
+    for (x = 0, xL = doc.textFrames.length; x < xL; x++) {
+      for (y = 0, yL = doc.textFrames[x].tables.length; y < yL; y++) {
+        myTable = (app.selection = doc.textFrames[x].tables[y]);
         if (myTable.constructor.name == "Table") {
-          for (w = 0; w < myTable.columns.length; w++) {
-            for (v = 0; v < myTable.rows.length; v++) {
-              var myCellName = w + ":" + v; //対象セル座標
-              var myCell = myTable.cells.itemByName(myCellName); //対象セル名
+          for (w = 0, wL = myTable.columns.length; w < wL; w++) {
+            for (v = 0, vL = myTable.rows.length; v < vL; v++) {
+              myCellName = w + ":" + v; //対象セル座標
+              myCell = myTable.cells.itemByName(myCellName); //対象セル名
               if (myTable.cells.itemByName("0:0").contents.search(objTxtbox01.text) != -1) {
                 myTable.label = objTxtbox02.text.toString();
               }
