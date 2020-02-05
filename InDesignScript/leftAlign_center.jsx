@@ -3,8 +3,8 @@ function Main() {
   app.doScript("doMain()", ScriptLanguage.JAVASCRIPT, [], UndoModes.fastEntireScript);
 }
 function doMain() {
-  function cellWidth(cell) {
-    var points = cels[j].lines[0].insertionPoints;
+  function cellWidth(cel) {
+    var points = cel.lines[0].insertionPoints;
     return points[-1].horizontalOffset - points[0].horizontalOffset;
   }
   var sel = app.selection[0];
