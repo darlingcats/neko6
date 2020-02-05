@@ -30,25 +30,27 @@ function doMain() {
   var searchLabel02val = "8mm"; //固定列用列幅02
 
   if (rtType == 1) {
-    alert("検索した文字列の列幅を変更します" + "\r\n\r\n" + "検索する文字列 ： " + objTxtbox01.text + "\r\n" + "列幅 ： " + objTxtbox02.text, "処理終了");
+    alert("検索した文字列の列幅を変更します" + "\r\n\r\n" + 
+    "検索する文字列 ： " + objTxtbox01.text + "\r\n" + 
+    "列幅 ： " + objTxtbox02.text, "処理終了");
 
     const startTime = Date.now(); // 開始時間
-
-    for (var x = 0, xL = doc.textFrames.length; x < xL; x++) {
-      var widths = [];
-      for (var y = 0, yL = doc.textFrames[x].tables.length; y < yL; y++) {
+    var widths, x, xL, y, yL, myTable, w, wL, v, vL, myCellName, myCellNamePre, myCell, myCellPre, resul, resulPre;
+    for (x = 0, xL = doc.textFrames.length; x < xL; x++) {
+      widths = [];
+      for (y = 0, yL = doc.textFrames[x].tables.length; y < yL; y++) {
         if (doc.textFrames[x].tables[y].columns.length > 0) {
           if (doc.textFrames[x].tables[y].label == lab) {
-            var myTable = (app.selection = doc.textFrames[x].tables[y]);
+            myTable = app.selection = doc.textFrames[x].tables[y];
             if (myTable.constructor.name == "Table") {
-              for (var w = 0, wL = myTable.columns.length; w < wL; w++) {
-                for (var v = 0, vL = myTable.rows.length; v < vL; v++) {
-                  var myCellName = w + ":" + v; //対象セル座標
-                  var myCellNamePre = w - 1 + ":" + v; //対象セル座標 - 1列
-                  var myCell = myTable.cells.itemByName(myCellName); //対象セル名
-                  var myCellPre = myTable.cells.itemByName(myCellNamePre); //対象セル - 1列名
-                  var resul = myCell.contents;
-                  var resulPre = myCellPre.contents;
+              for (w = 0, wL = myTable.columns.length; w < wL; w++) {
+                for (v = 0, vL = myTable.rows.length; v < vL; v++) {
+                  myCellName = w + ":" + v; //対象セル座標
+                  myCellNamePre = w - 1 + ":" + v; //対象セル座標 - 1列
+                  myCell = myTable.cells.itemByName(myCellName); //対象セル名
+                  myCellPre = myTable.cells.itemByName(myCellNamePre); //対象セル - 1列名
+                  resul = myCell.contents;
+                  resulPre = myCellPre.contents;
                   if (resul.search(searchLabel01) != -1) {
                     if (resul != resulPre) {
                       //横結合セルだった場合（左隣の内容と同じだったら無視）
@@ -74,17 +76,17 @@ function doMain() {
                   }
                 }
               }
-              main(myTable, 2);
-              n = doc.textFrames[x].tables[y].columnCount - 1; //列幅を固定する列が決まっている場合
+              widthAdj(0.25, 0.75);
+              n = myTable.columnCount - 1; //列幅を固定する列が決まっている場合
               widths[0] = "15mm";
               //widths[n] = "21mm";
               fixWid(widths);
-              TableResize(myTable);
+              TableResize();
             }
           }
           if (doc.textFrames[x].tables[y].label == lab2) {
             var myTable = (app.selection = doc.textFrames[x].tables[y]);
-            main2(myTable, 2);
+            widthAdj(0.5, 1);
           }
         }
       }
@@ -131,118 +133,77 @@ function doMain() {
     }
 
     //商品詳細表列幅
-    function main(myTable, margin) {
-      var col = myTable.columns;
-      for (var i = 0, iL = col.length; i < iL; i++) {
-        var cel = col[i].cells;
-        var ar = [];
-        for (var j = 0, jL = cel.length; j < jL; j++) {
-          // if cell has no content
-          if (cel[j].texts[0].contents === "") {
-            continue;
-          }
-          // if cell overflows
-          if (cel[j].overflows) {
-            while (cel[j].overflows) {
-              cel[j].width += 1;
-              if (cel[j].width > 100) {
-                alert("内容に改行が入っている可能性があります");
-                return;
-              }
-              if (cel[j].properties["lines"] !== undefined) {
-                break;
+    function widthAdj(inset, padd) {
+        var col = myTable.columns;
+        for (var i = 0, iL = col.length; i < iL; i++) {
+          var cel = col[i].cells;
+          var ar = [];
+          for (var j = 0, jL = cel.length; j < jL; j++) {
+            // if cell has no content
+            if (cel[j].texts[0].contents === "") {
+              continue;
+            }
+            // if cell overflows
+            if (cel[j].overflows) {
+              while (cel[j].overflows) {
+                cel[j].width += 1;
+                if (cel[j].width > 100) {
+                  alert("内容に改行が入っている可能性があります");
+                  return;
+                }
+                if (cel[j].properties["lines"] !== undefined) {
+                  break;
+                }
               }
             }
+            var os_start = cel[j].lines[0].insertionPoints[0].horizontalOffset;
+            var os_end = cel[j].lines[0].insertionPoints[-1].horizontalOffset;
+            ar.push(os_end - os_start);
           }
-          var os_start = cel[j].lines[0].insertionPoints[0].horizontalOffset;
-          var os_end = cel[j].lines[0].insertionPoints[-1].horizontalOffset;
-          alert(cel[j].lines[0].insertionPoints[0])
-          alert(cel[j].lines[0].insertionPoints[-1])
-          ar.push(os_end - os_start);
-        }
-        col[i].rightInset = col[i].leftInset = margin * 0.25;
-        var padding = col[i].rightInset + col[i].leftInset;
-        try {
-          col[i].width = Math.round(
-            ar.sort(function(a, b) {
-              return b > a;
-            })[0] +
-              padding +
-              0.75
-          );
-        } catch (e) {
-          alert(e);
-          return;
+          col[i].rightInset = col[i].leftInset = 2 * inset;
+          var padding = col[i].rightInset + col[i].leftInset;
+          try {
+            col[i].width = Math.round(
+              ar.sort(function(a, b) {
+                return b > a;
+              })[0] +
+                padding +
+                padd
+            );
+          } catch (e) {
+            alert(e);
+            return;
+          }
         }
       }
-    }
-
-    //メーカー名、商品名列幅
-    function main2(myTable, margin) {
-      var col = myTable.columns;
-      for (var i = 0, iL = col.length; i < iL; i++) {
-        var cel = col[i].cells;
-        var ar = [];
-        for (var j = 0, jL = cel.length; j < jL; j++) {
-          // if cell has no content
-          if (cel[j].texts[0].contents === "") {
-            continue;
-          }
-          // if cell overflows
-          if (cel[j].overflows) {
-            while (cel[j].overflows) {
-              cel[j].width += 1;
-              if (cel[j].width > 100) {
-                alert("内容に改行が入っている可能性があります");
-                return;
-              }
-              if (cel[j].properties["lines"] !== undefined) {
-                break;
-              }
-            }
-          }
-          var os_start = cel[j].lines[0].insertionPoints[0].horizontalOffset;
-          var os_end = cel[j].lines[0].insertionPoints[-1].horizontalOffset;
-          ar.push(os_end - os_start);
-        }
-        col[i].rightInset = margin * 0.5;
-        var padding = col[i].rightInset;
-        col[i].width = Math.round(
-          ar.sort(function(a, b) {
-            return b > a;
-          })[0] +
-            padding +
-            1
-        );
-      }
-    }
-
+  
     //テキストフレームとテーブルの差を取得して列幅を振り分け
-    function TableResize(myTable) {
-      var txfWidth = (function() {
-        var g = myTable.parent.geometricBounds;
+    function TableResize() {
+        var txfWidth, txfWidth2, g, tabWidth, tabWidth2, diffWidth, diffWidth2, taC, y, h, q, o;
+      txfWidth = (function() {
+        g = myTable.parent.geometricBounds;
         return g[3] - g[1];
       })();
-      var tabWidth = myTable.width;
-      var diffWidth = Math.round(txfWidth - tabWidth);
-      var taC = myTable.columns;
+      tabWidth = myTable.width;
+      diffWidth = Math.round(txfWidth - tabWidth);
+      taC = myTable.columns;
       if (diffWidth <= 0) {
         overtxf++;
       } else {
-        var y = parseInt(diffWidth / n);
-        for (var h = 1; h < n + 1; h++) {
+        y = parseInt(diffWidth / n);
+        for (h = 1; h < n + 1; h++) {
           taC[h].width += y;
         }
         //テキストフレームとテーブルの差を再計算
-        var txfWidth2 = (function() {
-          var g = myTable.parent.geometricBounds;
+        txfWidth2 = (function() {
+          g = myTable.parent.geometricBounds;
           return g[3] - g[1];
         })();
-        var tabWidth2 = myTable.width;
-        var diffWidth2 = Math.round(txfWidth2 - tabWidth2);
+        tabWidth2 = myTable.width;
+        diffWidth2 = Math.round(txfWidth2 - tabWidth2);
         if (diffWidth2 > 0) {
-          for (var q = 0; q < diffWidth2; q++) {
-            var o = n - q;
+          for (q = 0; q < diffWidth2; q++) {
+            o = n - q;
             taC[o].width += 1;
           }
         }
