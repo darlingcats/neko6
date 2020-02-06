@@ -39,7 +39,7 @@ function doMain() {
       for (y = 0, yL = doc.textFrames[x].tables.length; y < yL; y++) {
         if (doc.textFrames[x].tables[y].columns.length > 0) {
           if (doc.textFrames[x].tables[y].label == lab) {
-            myTable = (app.selection = doc.textFrames[x].tables[y]);
+            myTable = app.selection = doc.textFrames[x].tables[y];
             if (myTable.constructor.name == "Table") {
               for (w = 0, wL = myTable.columns.length; w < wL; w++) {
                 for (v = 0, vL = myTable.rows.length; v < vL; v++) {
@@ -74,25 +74,25 @@ function doMain() {
                   }
                 }
               }
-              main(myTable, 2);
+              widthAdj(0.25, 0.75, true, true);
               n = myTable.columnCount - 1; //列幅を固定する列が決まっている場合
               widths[0] = "15mm";
               //widths[n] = "21mm";
-              fixWid(widths);
+              fixWid();
             }
           }
           if (doc.textFrames[x].tables[y].label == lab2) {
             var myTable = (app.selection = doc.textFrames[x].tables[y]);
-            main2(myTable, 2);
+            widthAdj(0.5, 1, true, false);
           }
         }
       }
     }
 
     //固定列幅
-    function fixWid(widths) {
+    function fixWid() {
       var sel = doc.selection[0];
-      var C = sel.columns;
+      var col = sel.columns;
       var txfWidth = (function() {
         var g = sel.parent.geometricBounds;
         return g[3] - g[1];
@@ -103,8 +103,9 @@ function doMain() {
       };
       for (k in widths) {
         var kNum = parseInt(k, 10);
+        alert(kNum)
         try {
-          if (isNaN(kNum) || kNum > C.length - 1) {
+          if (isNaN(kNum) || kNum > col.length - 1) {
             throw new RangeError("widthsオブジェクトのキーが対象外の列を指定しています");
           }
         } catch (e) {
@@ -130,7 +131,7 @@ function doMain() {
     }
 
     //商品詳細表列幅
-    function main(myTable, margin) {
+    function widthAdj(inset, padd, insertRIghtInset, insertLeftInset) {
       var col = myTable.columns;
       for (var i = 0, iL = col.length; i < iL; i++) {
         var cel = col[i].cells;
@@ -157,7 +158,12 @@ function doMain() {
           var os_end = cel[j].lines[0].insertionPoints[-1].horizontalOffset;
           ar.push(os_end - os_start);
         }
-        col[i].rightInset = col[i].leftInset = margin * 0.25;
+        if (insertRIghtInset) {
+          col[i].rightInset = 2 * inset;
+        }
+        if (insertLeftInset) {
+          col[i].leftInset = 2 * inset;
+        }
         var padding = col[i].rightInset + col[i].leftInset;
         try {
           col[i].width = Math.round(
@@ -165,52 +171,12 @@ function doMain() {
               return b > a;
             })[0] +
               padding +
-              0.75
+              padd
           );
         } catch (e) {
           alert(e);
           return;
         }
-      }
-    }
-
-    //メーカー名、商品名列幅
-    function main2(myTable, margin) {
-      var col = myTable.columns;
-      for (var i = 0, iL = col.length; i < iL; i++) {
-        var cel = col[i].cells;
-        var ar = [];
-        for (var j = 0, jL = cel.length; j < jL; j++) {
-          // if cell has no content
-          if (cel[j].texts[0].contents === "") {
-            continue;
-          }
-          // if cell overflows
-          if (cel[j].overflows) {
-            while (cel[j].overflows) {
-              cel[j].width += 1;
-              if (cel[j].width > 100) {
-                alert("内容に改行が入っている可能性があります");
-                return;
-              }
-              if (cel[j].properties["lines"] !== undefined) {
-                break;
-              }
-            }
-          }
-          var os_start = cel[j].lines[0].insertionPoints[0].horizontalOffset;
-          var os_end = cel[j].lines[0].insertionPoints[-1].horizontalOffset;
-          ar.push(os_end - os_start);
-        }
-        col[i].rightInset = margin * 0.5;
-        var padding = col[i].rightInset;
-        col[i].width = Math.round(
-          ar.sort(function(a, b) {
-            return b > a;
-          })[0] +
-            padding +
-            1
-        );
       }
     }
 
