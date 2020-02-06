@@ -30,9 +30,7 @@ function doMain() {
   var searchLabel02val = "8mm"; //固定列用列幅02
 
   if (rtType == 1) {
-    alert("検索した文字列の列幅を変更します" + "\r\n\r\n" + 
-    "検索する文字列 ： " + objTxtbox01.text + "\r\n" + 
-    "列幅 ： " + objTxtbox02.text, "処理終了");
+    alert("検索した文字列の列幅を変更します" + "\r\n\r\n" + "検索する文字列 ： " + objTxtbox01.text + "\r\n" + "列幅 ： " + objTxtbox02.text, "処理終了");
 
     const startTime = Date.now(); // 開始時間
     var widths, x, xL, y, yL, myTable, w, wL, v, vL, myCellName, myCellNamePre, myCell, myCellPre, resul, resulPre;
@@ -76,24 +74,24 @@ function doMain() {
                   }
                 }
               }
-              widthAdj(0.25, 0.75);
+              widthAdj(0.25, 0.75, true, true);
               n = myTable.columnCount - 1; //列幅を固定する列が決まっている場合
               widths[0] = "15mm";
               //widths[n] = "21mm";
-              fixWid(widths);
+              fixWid();
               TableResize();
             }
           }
           if (doc.textFrames[x].tables[y].label == lab2) {
             var myTable = (app.selection = doc.textFrames[x].tables[y]);
-            widthAdj(0.5, 1);
+            widthAdj(0.5, 1, true, false);
           }
         }
       }
     }
 
     //固定列幅
-    function fixWid(widths) {
+    function fixWid() {
       var sel = doc.selection[0];
       var C = sel.columns;
       var txfWidth = (function() {
@@ -133,7 +131,7 @@ function doMain() {
     }
 
     //商品詳細表列幅
-    function widthAdj(inset, padd) {
+    function widthAdj(inset, padd, insertRIghtInset, insertLeftInset) {
       var col = myTable.columns;
       for (var i = 0, iL = col.length; i < iL; i++) {
         var cel = col[i].cells;
@@ -149,7 +147,7 @@ function doMain() {
               cel[j].width += 1;
               if (cel[j].width > 100) {
                 alert("内容に改行が入っている可能性があります");
-                return;
+                re;
               }
               if (cel[j].properties["lines"] !== undefined) {
                 break;
@@ -160,7 +158,12 @@ function doMain() {
           var os_end = cel[j].lines[0].insertionPoints[-1].horizontalOffset;
           ar.push(os_end - os_start);
         }
-        col[i].rightInset = col[i].leftInset = 2 * inset;
+        if (insertRIghtInset) {
+          col[i].rightInset = 2 * inset;
+        }
+        if (insertLeftInset) {
+          col[i].leftInset = 2 * inset;
+        }
         var padding = col[i].rightInset + col[i].leftInset;
         try {
           col[i].width = Math.round(
@@ -214,8 +217,11 @@ function doMain() {
 
     alert(endTime - startTime); // 何ミリ秒かかったかを表示する
 
-    alert("テキストフレームに収まらないテーブルが" + overtxf + "個あります");
-    alert("処理が完了しました");
+    if (overtxf > 0) {
+      alert("処理が完了しました" + "\r\n" + "テキストフレームに収まらないテーブルが" + overtxf + "個あります", "処理終了", true);
+    } else {
+      alert("処理が完了しました", "処理終了", true);
+    }
   } else if (rtType == 2) {
     alert("キャンセルされました。", "処理終了", true);
   }
