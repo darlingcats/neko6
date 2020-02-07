@@ -35,6 +35,7 @@ function doMain() {
   }
 
   function leftCenter() {
+    var overTxt = 0;
     var txtF, x, xL, tabs, y, yL, cols, rwsL, i, iL, j, jL, cels, colWidth, minCellInset, arr;
     txtF = doc.textFrames;
     for (x = 0, xL = txtF.length; x < xL; x++) {
@@ -51,9 +52,13 @@ function doMain() {
               if (cels[1].contents.length > 5) {
                 minCellInset = Infinity; // ★Infinityは大きな値を示す組込の変数
                 for (j = 1, jL = cels.length; j < jL; j++) {
-                  var v = cels[j].characters.itemByRange(0, 5).contents;
-                  arr.push(v);
-                  minCellInset = Math.min(minCellInset, colWidth - cellWidth(cels[j]));
+                  if (cels[j].overflows) {
+                    overTxt++;
+                  } else {
+                    var v = cels[j].characters.itemByRange(0, 5).contents;
+                    arr.push(v);
+                    minCellInset = Math.min(minCellInset, colWidth - cellWidth(cels[j]));
+                  }
                 }
                 function uniform(arr, identity) {
                   identity =
@@ -62,7 +67,7 @@ function doMain() {
                       return a === b;
                     };
                   if (!arr) {
-                    throw new TypeError("`itmes` は配列で指定してね！");
+                    throw new TypeError("`arr` は配列で指定してね！");
                   }
                   if (!arr.length) {
                     return true;
@@ -90,5 +95,6 @@ function doMain() {
         }
       }
     }
+    alert("オーバーテキストが" + overTxt + "箇所あります");
   }
 }
