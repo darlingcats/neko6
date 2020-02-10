@@ -8,6 +8,7 @@ function doMain() {
     return points[-1].horizontalOffset - points[0].horizontalOffset;
   }
   var sel = app.selection[0];
+  var overTxt = 0;
   var cols = sel.columns; // ★colsが複数形って名前でわかるようにしておきたい
   sel.leftInset = sel.rightInset = 0;
 
@@ -17,10 +18,15 @@ function doMain() {
     colWidth = cols[i].width;
     minCellInset = Infinity; // ★Infinityは大きな値を示す組込の変数
     for (j = 1, jL = cels.length; j < jL; j++) {
-      minCellInset = Math.min(minCellInset, colWidth - cellWidth(cels[j]));
-      cels[j].paragraphs[0].justification = Justification.leftAlign;
+      if (cels[j].overflows) {
+        overTxt++;
+      } else {
+        minCellInset = Math.min(minCellInset, colWidth - cellWidth(cels[j]));
+        cels[j].paragraphs[0].justification = Justification.leftAlign;
+      }
     }
     cols[i].textLeftInset = Math.round((minCellInset / 2) * 100) / 100;
     cels[0].textLeftInset = cels[0].textRightInset = 1; //ヘッダー
   }
+  alert("オーバーテキストが" + overTxt + "箇所あります", "処理終了", true);
 }
