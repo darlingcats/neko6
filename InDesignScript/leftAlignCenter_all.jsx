@@ -11,30 +11,6 @@ function doMain() {
   var doc = app.activeDocument;
   var lab = "selec"; //商品詳細表スクリプトラベル
 
-  try {
-    if (app.selection[0].constructor.name == "Cell") {
-      var sel = app.selection[0];
-      var cols = sel.columns; // ★colsが複数形って名前でわかるようにしておきたい
-      sel.leftInset = sel.rightInset = 0;
-
-      var i, iL, j, jL, cels, colWidth, minCellInset;
-      for (i = 0, iL = cols.length; i < iL; i++) {
-        cels = cols[i].cells;
-        colWidth = cols[i].width;
-        minCellInset = Infinity; // ★Infinityは大きな値を示す組込の変数
-        for (j = 1, jL = cels.length; j < jL; j++) {
-          minCellInset = Math.min(minCellInset, colWidth - cellWidth(cels[j]));
-          cels[j].paragraphs[0].justification = Justification.leftAlign;
-        }
-        cols[i].textLeftInset = Math.round((minCellInset / 2) * 100) / 100;
-        cels[0].textLeftInset = cels[0].textRightInset = 1; //ヘッダー
-      }
-    }
-  } catch (e) {
-    leftCenter();
-  }
-
-  function leftCenter() {
     var overTxt = 0;
     var txtF, x, xL, tabs, y, yL, cols, rwsL, i, iL, j, jL, cels, colWidth, minCellInset, arr;
     txtF = doc.textFrames;
@@ -97,4 +73,3 @@ function doMain() {
     }
     alert("オーバーテキストが" + overTxt + "箇所あります");
   }
-}
