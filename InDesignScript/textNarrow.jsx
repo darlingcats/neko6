@@ -7,23 +7,24 @@ function doMain() {
 
   var doc = app.activeDocument;
   var minSca = 70; //最小水平比率
+  var adjAmo = 1; //調整量（%）
   var overTxt = 0; //収まらないテキスト数
 
-	//長体をかけていく
+  //長体をかけていく
   function choutai(obj) {
+    var scaAmo = 0;
     while (obj.overflows) {
-      obj.paragraphs[0].horizontalScale -= 1;
+      obj.paragraphs[0].horizontalScale -= adjAmo;
+      scaAmo++;
       obj.recompose(); //再読み込み
-      if (obj.paragraphs[0].horizontalScale <= minSca) {
+      if (obj.paragraphs[0].horizontalScale < minSca) {
         overTxt++;
-        break;
-      }
-      if (!obj.overflows) {
+        obj.paragraphs[0].horizontalScale = minSca + scaAmo - 1;
         break;
       }
     }
-	}
-	
+  }
+
   var i, iL, txtF, j, jL, tabs, k, kL, cels;
   //テキストフレーム
   txtF = doc.textFrames;
@@ -41,5 +42,9 @@ function doMain() {
   //const endTime = Date.now(); // 終了時間
 
   //alert(endTime - startTime); // 何ミリ秒かかったかを表示する
-  alert(minSca + "%で収まらないテキストが" + overTxt + "箇所あります");
+  if (overTxt > 0) {
+    alert("処理が完了しました" + "\r\n" + minSca + "%で収まらないテキストが" + overTxt + "箇所あります");
+  } else {
+    alert("処理が完了しました");
+  }
 }
