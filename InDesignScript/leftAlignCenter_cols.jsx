@@ -28,5 +28,7 @@ function doMain() {
     cols[i].textLeftInset = Math.round((minCellInset / 2) * 100) / 100;
     cels[0].textLeftInset = cels[0].textRightInset = 1; //ヘッダー
   }
+  if (overTxt > 0) {
   alert("オーバーテキストが" + overTxt + "箇所あります", "処理終了", true);
+  }
 }
