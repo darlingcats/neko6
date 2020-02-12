@@ -33,15 +33,17 @@ function doMain() {
 
     const startTime = Date.now(); // 開始時間
 
-    var widths, x, xL, y, yL, myTable, w, v, myCellName, myCellNamePre, myCell, myCellPre, resul, resulPre;
+    var widths, x, xL, tabs, y, yL, myTable, cols, w, v, myCellName, myCellNamePre, myCell, myCellPre, resul, resulPre;
     for (x = 0, xL = doc.textFrames.length; x < xL; x++) {
       widths = [];
-      for (y = 0, yL = doc.textFrames[x].tables.length; y < yL; y++) {
-        if (doc.textFrames[x].tables[y].columns.length > 0) {
-          if (doc.textFrames[x].tables[y].label == lab) {
-            myTable = app.selection = doc.textFrames[x].tables[y];
+      tabs = doc.textFrames[x].tables;
+      for (y = 0, yL = tabs.length; y < yL; y++) {
+        if (tabs[y].columns.length > 0) {
+          if (tabs[y].label == lab) {
+            myTable = app.selection = tabs[y];
             if (myTable.constructor.name == "Table") {
-              for (w = 0, wL = myTable.columns.length; w < wL; w++) {
+              cols = myTable.columns;
+              for (w = 0, wL = cols.length; w < wL; w++) {
                 for (v = 0, vL = myTable.rows.length; v < vL; v++) {
                   myCellName = w + ":" + v; //対象セル座標
                   myCellNamePre = w - 1 + ":" + v; //対象セル座標 - 1列
@@ -81,8 +83,9 @@ function doMain() {
               fixWid();
             }
           }
-          if (doc.textFrames[x].tables[y].label == lab2) {
-            var myTable = (app.selection = doc.textFrames[x].tables[y]);
+          if (tabs[y].label == lab2) {
+            myTable = app.selection = tabs[y];
+            cols = myTable.columns;
             widthAdj(0.5, 1, true, false);
           }
         }
@@ -91,21 +94,18 @@ function doMain() {
 
     //固定列幅
     function fixWid() {
-      var sel = doc.selection[0];
-      var col = sel.columns;
       var txfWidth = (function() {
-        var g = sel.parent.geometricBounds;
+        var g = myTable.parent.geometricBounds;
         return g[3] - g[1];
       })();
       var fillCells = {
-        ary: Array(C.length),
+        ary: Array(cols.length),
         sum: 0
       };
       for (k in widths) {
         var kNum = parseInt(k, 10);
-        alert(kNum)
         try {
-          if (isNaN(kNum) || kNum > col.length - 1) {
+          if (isNaN(kNum) || kNum > cols.length - 1) {
             throw new RangeError("widthsオブジェクトのキーが対象外の列を指定しています");
           }
         } catch (e) {
@@ -113,39 +113,38 @@ function doMain() {
           return;
         }
         if (widths[k] && widths[k] !== "fill") {
-          C[k].width = widths[k];
-          txfWidth -= C[k].width;
+          cols[k].width = widths[k];
+          txfWidth -= cols[k].width;
         } else if (widths[k] === "fill") {
           fillCells.ary[k] = true;
           fillCells.sum++;
         } else {
-          txfWidth -= C[k].width;
+          txfWidth -= cols[k].width;
         }
       }
       var fillWidth = txfWidth / fillCells.sum;
-      for (var i = 0; i < C.length; i++) {
+      for (var i = 0; i < cols.length; i++) {
         if (fillCells.ary[i]) {
-          C[i].width = fillWidth;
+          cols[i].width = fillWidth;
         }
       }
     }
 
     //商品詳細表列幅
     function widthAdj(inset, padd, insertRIghtInset, insertLeftInset) {
-      var col = myTable.columns;
-      for (var i = 0, iL = col.length; i < iL; i++) {
-        var cel = col[i].cells;
+      for (var i = 0, iL = cols.length; i < iL; i++) {
+        var cels = cols[i].cells;
         var ar = [];
-        for (var j = 0, jL = cel.length; j < jL; j++) {
+        for (var j = 0, jL = cels.length; j < jL; j++) {
           // if cell has no content
-          if (cel[j].texts[0].contents === "") {
+          if (cels[j].texts[0].contents === "") {
             continue;
           }
           // if cell overflows
-          if (cel[j].overflows) {
-            while (cel[j].overflows) {
-              cel[j].width += 1;
-              if (cel[j].width > 100) {
+          if (cels[j].overflows) {
+            while (cels[j].overflows) {
+              cels[j].width += 1;
+              if (cels[j].width > 100) {
                 alert("内容に改行が入っている可能性があります");
                 return;
               }
@@ -154,19 +153,19 @@ function doMain() {
               }
             }
           }
-          var os_start = cel[j].lines[0].insertionPoints[0].horizontalOffset;
-          var os_end = cel[j].lines[0].insertionPoints[-1].horizontalOffset;
+          var os_start = cels[j].lines[0].insertionPoints[0].horizontalOffset;
+          var os_end = cels[j].lines[0].insertionPoints[-1].horizontalOffset;
           ar.push(os_end - os_start);
         }
         if (insertRIghtInset) {
-          col[i].rightInset = 2 * inset;
+          cols[i].rightInset = 2 * inset;
         }
         if (insertLeftInset) {
-          col[i].leftInset = 2 * inset;
+          cols[i].leftInset = 2 * inset;
         }
-        var padding = col[i].rightInset + col[i].leftInset;
+        var padding = cols[i].rightInset + cols[i].leftInset;
         try {
-          col[i].width = Math.round(
+          cols[i].width = Math.round(
             ar.sort(function(a, b) {
               return b > a;
             })[0] +
@@ -184,7 +183,7 @@ function doMain() {
 
     alert(endTime - startTime); // 何ミリ秒かかったかを表示する
 
-    alert("処理が完了しました");
+    alert("処理が完了しました", "処理終了", true);
   } else if (rtType == 2) {
     alert("キャンセルされました。", "処理終了", true);
   }
