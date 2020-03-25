@@ -6,6 +6,7 @@ function doMain() {
   var doc = app.activeDocument;
   var conf_obj = {};
 
+  //段落スタイルを取得
   var pStyles_names = "";
   var pStyles = doc.paragraphStyles;
   for (i = 0; i < pStyles.length; i++) {
@@ -23,20 +24,31 @@ function doMain() {
   pStyles_names = pStyles_names.substring(0, pStyles_names.length - 1);
   pStyles_names = pStyles_names.split(",");
 
+  var x1, y1, x2, y2;
+  x1 = 0;
+  y1 = 0;
+  x2 = 350;
+  y2 = 220;
+
   //　ダイアログ作成
-  var objDlg = new Window("dialog", "段落スタイルを検索してスクリプトラベルを付与", [0, 0, 350, 220]);
+  var objDlg = new Window("dialog", "同じ内容のセルを連結", [x1, y1, x2, y2]);
+
   //　テキストを追加
   var objStText01 = objDlg.add("statictext", [20, 25, 350, 45], "段落スタイル");
   var objStText02 = objDlg.add("statictext", [20, 95, 350, 115], "付与スクリプトラベル");
+
   //　ドロップダウンリストを追加
   var objTxtbox01 = objDlg.add("dropdownlist", [20, 50, 315, 75], pStyles_names);
   objTxtbox01.title = "検索段落スタイル：";
   objTxtbox01.selection = conf_obj["place"] === undefined ? 0 : conf_obj["place"]; //何番目を初期表示とするか（らしい）
+
   //　テキストボックスを追加
   var objTxtbox02 = objDlg.add("edittext", [20, 120, 315, 145], "");
+
   //ボタン
-  objDlg.add("button", [340 - 145, 220 - 40, 340 - 95, 220 - 15], "実行", { name: "ok" });
-  objDlg.add("button", [340 - 90, 220 - 40, 340 - 10, 220 - 15], "キャンセル", { name: "cancel" });
+  objDlg.add("button", [x2 - 145, y2 - 40, x2 - 95, y2 - 15], "実行", { name: "ok" });
+  objDlg.add("button", [x2 - 90, y2 - 40, x2 - 10, y2 - 15], "キャンセル", { name: "cancel" });
+
   //　ダイアログ表示
   objDlg.center();
   var rtType = objDlg.show();
@@ -45,10 +57,20 @@ function doMain() {
   if (rtType == 1) {
     alert("以下の内容でスクリプトラベルを付与します" + "\r\n\r\n" + "段落スタイル ： " + pStyles_names[objTxtbox01.selection.index] + "\r\n" + "付与スクリプトラベル ： " + objTxtbox02.text, "処理終了");
     //const startTime = Date.now(); // 開始時間
+
+    //スクリプトラベルを付与
+    pStyleNames01 = pStyles_names[objTxtbox01.selection.index];
+
+    if (pStyleNames01.match("___")) {
+      pStyle01Spl = pStyleNames01.split("___");
+      pStyle01 = pStyle01Spl[1];
+    } else {
+      pStyle01 = pStyleNames01;
+    }
     var x, xL, txf;
     for (x = 0, xL = doc.textFrames.length; x < xL; x++) {
       txf = doc.textFrames[x];
-      if (txf.paragraphs[0].appliedParagraphStyle.name == pStyles_names[objTxtbox01.selection.index]) {
+      if (txf.paragraphs[0].appliedParagraphStyle.name == pStyle01) {
         txf.label = objTxtbox02.text;
       }
     }
@@ -57,7 +79,7 @@ function doMain() {
 
     //alert(endTime - startTime); // 何ミリ秒かかったかを表示する
 
-    alert("処理が完了しました");
+    alert("処理が完了しました", "処理終了", true);
   } else if (rtType == 2) {
     alert("キャンセルされました。", "処理終了", true);
   }
