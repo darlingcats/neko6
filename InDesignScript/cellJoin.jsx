@@ -85,6 +85,7 @@ function doMain() {
                   resulPreW = myCellPreW.contents;
                   resulPreV = myCellPreV.contents;
 
+                  //縦結合
                   if (objBtn01.value == true) {
                     if (myCell.rowSpan < 2) {
                       if (resul == resulPreV) {
@@ -113,6 +114,8 @@ function doMain() {
                       }
                     }
                   }
+
+                  //横結合
                   if (objBtn02.value == true) {
                     if (myCell.columnSpan < 2) {
                       if (resul == resulPreW) {
