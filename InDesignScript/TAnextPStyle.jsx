@@ -4,11 +4,12 @@ function Main() {
 }
 function doMain() {
   var doc = app.activeDocument;
-  var i, iL, j, jL, k, kL, l, lL, txFs, tabs, cels, paphs, styleTokucho, styleChui, styleFuzoku;
+  var i, iL, j, jL, k, kL, l, lL, txFs, tabs, cels, paphs, pStyleGrps, styleTokucho, styleChui, styleFuzoku;
   
-  styleTokucho = app.activeDocument.paragraphStyleGroups.itemByName("02_用途/特長/注意").paragraphStyles.itemByName("02_特長2");
-  styleChui = app.activeDocument.paragraphStyleGroups.itemByName("02_用途/特長/注意").paragraphStyles.itemByName("02_注意2");
-  styleFuzoku = app.activeDocument.paragraphStyleGroups.itemByName("03_商品情報").paragraphStyles.itemByName("付属品/材質/表面処理2");
+  pStyleGrps = app.activeDocument.paragraphStyleGroups;
+  styleTokucho = pStyleGrps.itemByName("02_用途/特長/注意").paragraphStyles.itemByName("02_特長2");
+  styleChui = pStyleGrps.itemByName("02_用途/特長/注意").paragraphStyles.itemByName("02_注意2");
+  styleFuzoku = pStyleGrps.itemByName("03_商品情報").paragraphStyles.itemByName("付属品/材質/表面処理2");
 
   txFs = doc.textFrames;
   for (i = 0, iL = txFs.length; i < iL; i++) {
@@ -29,4 +30,5 @@ function doMain() {
       }
     }
   }
+  alert("処理が完了しました", "処理終了", true);
 }
