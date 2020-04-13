@@ -1,4 +1,4 @@
-//v1_7 20406 改行に対応・「入数」、「あたりの価格」改良
+//v1_8 20408 改行に対応・「入数」、「あたりの価格」更に改良
 
 Main();
 function Main() {
@@ -141,11 +141,14 @@ function doMain() {
           if (cels[j].overflows) {
             while (cels[j].overflows) {
               cels[j].width += 1;
-              if (cels[j].lines.length > 1) {
-                while (cels[j].overflows) {
-                  cels[j].height += 2.5;
-                  if (cels[j].height > 8) {
-                    break;
+              cels[j].recompose(); //★ここ
+              if (cels[j].width > 175) {
+                if (cels[j].lines.length > 1) {
+                  while (cels[j].overflows) {
+                    cels[j].height += 2.5;
+                    if (cels[j].height > 8) {
+                      break;
+                    }
                   }
                 }
               }
