@@ -53,7 +53,7 @@ function doMain() {
   //　ダイアログボックスの戻り値から条件分岐して、値を表示
 
   if (rtType == 1) {
-    alert("以下の内容で画像の拡大縮小比率を変更します" + "\r\n\r\n" + "オブジェクトスタイル ： " + obStyles_names[objTxtbox01.selection.index] + "\r\n" + "回転角度 ： " + objTxtbox02.text + "%", "処理終了");
+    alert("以下の内容で画像の拡大縮小比率を変更します" + "\r\n\r\n" + "オブジェクトスタイル ： " + obStyles_names[objTxtbox01.selection.index] + "\r\n" + "回転角度 ： " + objTxtbox02.text + "°", "処理終了");
 
     //画像一括拡大／縮小スクリプト
     var myScale = objTxtbox02.text;
