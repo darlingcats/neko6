@@ -1,3 +1,5 @@
+//セルを条件で結合
+
 Main();
 function Main() {
   app.doScript("doMain()", ScriptLanguage.JAVASCRIPT, [], UndoModes.fastEntireScript);
