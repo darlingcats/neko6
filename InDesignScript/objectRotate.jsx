@@ -1,3 +1,5 @@
+//オブジェクトスタイルで検索して画像を回転
+
 Main();
 function Main() {
   app.doScript("doMain()", ScriptLanguage.JAVASCRIPT, [], UndoModes.fastEntireScript);
