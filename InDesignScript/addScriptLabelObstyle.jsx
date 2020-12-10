@@ -1,3 +1,5 @@
+//オブジェクトスタイルを検索してスクリプトラベルを付与する
+
 Main();
 function Main() {
   app.doScript("doMain()", ScriptLanguage.JAVASCRIPT, [], UndoModes.fastEntireScript);
