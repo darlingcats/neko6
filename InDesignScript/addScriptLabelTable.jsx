@@ -1,3 +1,5 @@
+//テーブルを検索してスクリプトラベルを付与
+
 Main();
 function Main() {
   app.doScript("doMain()", ScriptLanguage.JAVASCRIPT, [], UndoModes.fastEntireScript);
