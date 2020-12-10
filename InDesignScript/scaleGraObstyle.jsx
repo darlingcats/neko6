@@ -1,3 +1,5 @@
+//オブジェクトスタイルで検索して画像を拡大縮小
+
 Main();
 function Main() {
   app.doScript("doMain()", ScriptLanguage.JAVASCRIPT, [], UndoModes.fastEntireScript);
