@@ -1,3 +1,5 @@
+//フォルダ内のinddを開いて列幅を自動で整える
+
 var F = Folder.selectDialog("フォルダを選択してください");
 main(F, true);
 
