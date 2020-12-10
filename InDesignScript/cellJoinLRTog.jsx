@@ -1,3 +1,5 @@
+//左右セルの結合数に合わせてセルを結合
+
 //@include 'polyfill.js';
 Main();
 function Main() {
