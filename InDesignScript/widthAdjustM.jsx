@@ -48,7 +48,9 @@ function doMain() {
 				if (tabs[y].columns.length > 0) {
 					if (tabs[y].label == lab) {
 						for (i = 0, iL = tabs[y].cells.length; i < iL; i++) {
-							tabs[y].cells[i].unmerge();
+							if (tabs[y].rows[0].rowType === RowTypes.headerRow && tabs[y].rows[1].rowType === RowTypes.headerRow) {
+								tabs[y].cells[i].unmerge();
+							}
 						}
 						myTable = app.selection = tabs[y];
 						if (myTable.constructor.name == "Table") {
