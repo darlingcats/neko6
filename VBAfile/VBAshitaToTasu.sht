@@ -1,0 +1,39 @@
+ Sub aaa()
+ 
+Dim i As Long
+Dim k As Long
+Dim maxrow As Long
+
+Worksheets(1).Activate
+
+maxrow = Worksheets(1).Range("A65536").End(xlUp).Row
+i = 3
+k = 3
+Range("A3:A65536").Value = Range("A3:A65536").Value ' 数値化
+Do Until i > maxrow
+
+    If Worksheets(1).Cells(i, 1).Value = Worksheets(1).Cells(i - 1, 1).Value And Worksheets(1).Cells(i, 1).Value <> "" Then
+        Worksheets(1).Rows(i + 1).Insert
+        Worksheets(1).Cells(i + 1, 1).Value = Worksheets(1).Cells(i, 1).Value
+        Worksheets(1).Cells(i + 1, 2).Value = Worksheets(1).Cells(i, 2).Value
+        
+        Do Until k > 37
+          Cells(i + 1, k) = Application.WorksheetFunction.Sum(Range(Cells(i, k), Cells(i - 1, k)))
+            If Cells(i + 1, k).Value = 0 Then
+              Cells(i + 1, k).Value = ""
+            End If
+          k = k + 1
+        Loop
+        k = 3
+        
+    Worksheets(1).Rows(i).Delete
+    Worksheets(1).Rows(i - 1).Delete
+    i = i - 1
+    End If
+    
+i = i + 1
+
+Loop
+ 
+ MsgBox " 処理が完了しました"
+End Sub
