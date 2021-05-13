@@ -1,0 +1,65 @@
+Sub Comparison()
+ 
+Dim i As Long
+Dim k As Long
+Dim x As Integer
+Dim maxrow As Long
+Dim maxroww As Long
+Dim firname As String
+Dim secname As String
+
+firname = ActiveWorkbook.Name
+
+Dim OpenFileName As String
+'OpenFileName = Application.GetOpenFilename("Microsoft Excelブック,*.xls?") 'Windows用
+OpenFileName = Application.GetOpenFilename() 'Mac用
+If OpenFileName <> "False" Then
+    Workbooks.Open OpenFileName
+    
+    secname = ActiveWorkbook.Name
+    
+    maxrow = Workbooks(firname).Worksheets(1).Cells(Rows.Count, 1).End(xlUp).Row
+    maxroww = Workbooks(secname).Worksheets(1).Cells(Rows.Count, 1).End(xlUp).Row
+    i = 2
+    k = 3
+    
+    Do Until i > maxrow
+    
+        If i = 3000 Then
+            MsgBox "3000件を超えたので停止しました"
+            Exit Do
+        End If
+    
+        Dim Rng As Range
+            With Workbooks(secname).Worksheets(1)
+                Set Rng = .Range(.Cells(2, 1), .Cells(maxroww, 1)).Find(What:=Workbooks(firname).Worksheets(1).Cells(i, 1), LookIn:=xlValues, LookAt:=xlWhole)
+            End With
+            With Workbooks(firname).Worksheets(1)
+                If Not Rng Is Nothing Then
+                    Do Until k > 35
+                        x = StrComp(.Cells(i, k), Workbooks(secname).Worksheets(1).Cells(Rng.Row, k))
+                        If x <> 0 Then
+                            .Cells(i, k).Interior.ColorIndex = 40
+                        End If
+                        k = k + 1
+                    Loop
+                    k = 3
+                Else
+                    .Cells(i, 1).Interior.ColorIndex = 40
+                    .Cells(i, 2).Interior.ColorIndex = 40
+                End If
+            End With
+        
+        i = i + 1
+      
+    Loop
+    
+    MsgBox "比較に成功しました！"
+    Workbooks(firname).Activate
+    
+Else
+    MsgBox "キャンセルされました"
+End If
+
+End Sub
+
