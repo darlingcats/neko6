@@ -1,0 +1,289 @@
+Sub aaa()
+
+Dim x As Long
+Dim z As Long
+Dim maxrow As Long
+
+Worksheets(1).Activate
+
+maxrow = Worksheets(1).Range("A65536").End(xlUp).Row
+i = 2
+y = 1
+x = 0
+
+Worksheets(1).Cells(i, 3).Value = 2
+
+        If Mid(Worksheets(1).Cells(i, 6), 45, 2) = 10 Then
+                x = 12
+        ElseIf Mid(Worksheets(1).Cells(i, 6), 45, 2) = 8 Then
+                x = 15
+        ElseIf Mid(Worksheets(1).Cells(i, 6), 45, 2) = 6 Then
+                x = 20
+        ElseIf Mid(Worksheets(1).Cells(i, 6), 45, 2) = 4 Then
+                x = 30
+        End If
+        
+Do Until i > maxrow
+
+If Worksheets(1).Cells(i, 2) <> Worksheets(1).Cells(i - 1, 2) Then
+
+If Worksheets(1).Cells(i, 93).Value <> Worksheets(1).Cells(i - 1, 93).Value And i <> 2 Then
+        
+        If Mid(Worksheets(1).Cells(i, 6), 45, 2) = 10 Then
+                x = x + 24
+                If x > 120 Then
+                        z = 24
+                End If
+        ElseIf Mid(Worksheets(1).Cells(i, 6), 45, 2) = 8 Then
+                x = x + 30
+                If x > 120 Then
+                        z = 30
+                End If
+        ElseIf Mid(Worksheets(1).Cells(i, 6), 45, 2) = 6 Then
+                x = x + 40
+                If x > 120 Then
+                        z = 40
+                End If
+        ElseIf Mid(Worksheets(1).Cells(i, 6), 45, 2) = 4 Then
+                x = x + 60
+                If x > 120 Then
+                        z = 60
+                End If
+        End If
+        
+        If x > 120 Then
+                Worksheets(1).Cells(i, 3).Value = 2
+                x = z
+                ElseIf i <> 2 Then
+                Worksheets(1).Cells(i, 3).Value = Worksheets(1).Cells(i - 1, 3).Value + 2
+        End If
+Else
+        If Mid(Worksheets(1).Cells(i, 6), 45, 2) = 10 Then
+                x = x + 12
+                If x > 120 Then
+                        z = 12
+                End If
+        ElseIf Mid(Worksheets(1).Cells(i, 6), 45, 2) = 8 Then
+                x = x + 15
+                If x > 120 Then
+                        z = 15
+                End If
+        ElseIf Mid(Worksheets(1).Cells(i, 6), 45, 2) = 6 Then
+                x = x + 20
+                If x > 120 Then
+                        z = 20
+                End If
+        ElseIf Mid(Worksheets(1).Cells(i, 6), 45, 2) = 4 Then
+                x = x + 30
+                If x > 120 Then
+                        z = 30
+                End If
+        End If
+        
+        If x > 120 Then
+                Worksheets(1).Cells(i, 3).Value = 1
+                x = z
+                ElseIf i <> 2 Then
+                Worksheets(1).Cells(i, 3).Value = Worksheets(1).Cells(i - 1, 3).Value + 1
+        End If
+        End If
+
+Else: Worksheets(1).Cells(i, 3).Value = Worksheets(1).Cells(i - 1, 3).Value
+End If
+
+i = i + 1
+
+Loop
+
+End Sub
+
+ Sub bbb()
+ 
+Dim maxrow As Long
+
+Worksheets(1).Activate
+
+maxrow = Worksheets(1).Range("A65536").End(xlUp).Row
+i = 2
+
+Do Until i > maxrow
+
+If i = 2 Then
+    Worksheets(1).Cells(i, 4).Value = 1
+    Else
+
+    If Worksheets(1).Cells(i, 3).Value = Worksheets(1).Cells(i - 1, 3).Value Then
+        Worksheets(1).Cells(i, 4).Value = Worksheets(1).Cells(i - 1, 4).Value
+        Else
+        If Worksheets(1).Cells(i, 3).Value = 1 Or Worksheets(1).Cells(i, 3).Value = 2 Then
+            If Worksheets(1).Cells(i - 1, 3).Value >= Worksheets(1).Cells(i, 3).Value Then
+                Worksheets(1).Cells(i, 4).Value = Worksheets(1).Cells(i - 1, 4).Value + 1
+                Else: Worksheets(1).Cells(i, 4).Value = Worksheets(1).Cells(i - 1, 4).Value
+            End If
+            Else: Worksheets(1).Cells(i, 4).Value = Worksheets(1).Cells(i - 1, 4).Value
+        End If
+    End If
+End If
+
+i = i + 1
+
+Loop
+
+End Sub
+
+Sub ccc()
+
+Dim haiti As Long
+Dim maxrow As Long
+
+Worksheets(1).Activate
+
+maxrow = Worksheets(1).Range("A65536").End(xlUp).Row
+i = 2
+
+Worksheets.Add After:=Worksheets("Sheet1"), Count:=1
+ActiveSheet.Name = "親"
+Worksheets(1).Activate
+
+Worksheets("親").Cells(1, 1).Value = "商品コード"
+Worksheets("親").Cells(1, 2).Value = "親コード"
+Worksheets("親").Cells(1, 3).Value = "配置番号"
+Worksheets("親").Cells(1, 4).Value = "ページ番号"
+Worksheets("親").Cells(1, 5).Value = "MAX"
+
+Do Until i > maxrow
+    
+    If Worksheets(1).Cells(i, 1) = Worksheets(1).Cells(i, 2) Then
+    
+        oyamax = Worksheets("親").Range("A65536").End(xlUp).Row
+        
+        Worksheets("親").Cells(oyamax + 1, 1).Value = Worksheets(1).Cells(i, 1)
+        Worksheets("親").Cells(oyamax + 1, 2).Value = Worksheets(1).Cells(i, 2)
+        Worksheets("親").Cells(oyamax + 1, 3).Value = Worksheets(1).Cells(i, 3)
+        Worksheets("親").Cells(oyamax + 1, 4).Value = Worksheets(1).Cells(i, 4)
+        Worksheets("親").Cells(oyamax + 1, 5).Value = Mid(Worksheets(1).Cells(i, 6), 45, 2)
+        
+    End If
+    
+    i = i + 1
+
+Loop
+
+End Sub
+
+Sub ddd()
+
+Worksheets("親").Activate
+
+Worksheets.Add After:=Worksheets("親"), Count:=1
+ActiveSheet.Name = "座標"
+Worksheets("親").Activate
+
+Worksheets("座標").Cells(1, 1).Value = "ツメ情報"
+Worksheets("座標").Cells(1, 2).Value = "_小組ファイル"
+Worksheets("座標").Cells(1, 3).Value = "X座標"
+Worksheets("座標").Cells(1, 4).Value = "Y座標"
+Worksheets("座標").Cells(1, 5).Value = "ページ番号"
+
+maxrow = Worksheets("親").Range("A65536").End(xlUp).Row
+i = 2
+
+buf = InputBox("場所は？", "場所確認", "")
+
+Do Until i > maxrow
+
+    Worksheets("座標").Cells(i, 1).Value = ""
+    Worksheets("座標").Cells(i, 2).Value = "/_カタログ/" & buf & "/小組実行indd/" & Worksheets("親").Cells(i, 2)
+    Worksheets("座標").Cells(i, 5).Value = Worksheets("親").Cells(i, 4)
+
+'X座標
+            
+If Worksheets("親").Cells(i, 4).Value Mod 2 = 0 Then
+        If Worksheets("親").Cells(i, 3).Value Mod 2 = 0 Then
+                Worksheets("座標").Cells(i, 3).Value = 111
+                Else: Worksheets("座標").Cells(i, 3).Value = 22
+        End If
+        ElseIf Worksheets("親").Cells(i, 3).Value Mod 2 = 0 Then
+                Worksheets("座標").Cells(i, 3).Value = 102
+                Else: Worksheets("座標").Cells(i, 3).Value = 13
+End If
+            
+'Y座標
+
+If Worksheets("親").Cells(i, 3).Value = 1 Or Worksheets("親").Cells(i, 3).Value = 2 Then
+   Worksheets("座標").Cells(i, 4).Value = 7
+Else
+ 
+If Worksheets("親").Cells(i, 3).Value = Worksheets("親").Cells(i - 1, 3).Value + 1 Then
+    If Worksheets("親").Cells(i, 4).Value = Worksheets("親").Cells(i - 2, 4).Value Then
+        Call func2(i)
+        If Worksheets("親").Cells(i, 3).Value <> Worksheets("親").Cells(i - 2, 3).Value + 2 Then
+            Call func1(i)
+    End If
+    Else
+        Call func1(i)
+    End If
+Else
+    Call func1(i)
+    End If
+End If
+         
+i = i + 1
+
+Loop
+
+Application.DisplayAlerts = False
+Sheets("親").Delete
+Application.DisplayAlerts = True
+Sheets("座標").Move
+
+'Windows用
+'Dim sp As String 'フォルダの区切り文字
+'Dim taimu As String
+'Dim tekisuto As String
+
+'sp = Application.PathSeparator
+'taimu = Format(Now, "yyyymmddhhmm")
+'tekisuto = ".txt"
+'Application.DisplayAlerts = False
+'ActiveWorkbook.SaveAs Filename:=ThisWorkbook.Path & sp & "配置" & taimu & ".txt", FileFormat:=xlUnicodeText
+
+ActiveWorkbook.Close
+
+End Sub
+
+Function func1(i) As String
+    If Worksheets("親").Cells(i - 1, 5).Value = 10 Then
+    h = 56.2
+    ElseIf Worksheets("親").Cells(i - 1, 5).Value = 8 Then
+    h = 70.5
+    ElseIf Worksheets("親").Cells(i - 1, 5).Value = 6 Then
+    h = 94
+    ElseIf Worksheets("親").Cells(i - 1, 5).Value = 4 Then
+    h = 141
+    End If
+    Worksheets("座標").Cells(i, 4).Value = Worksheets("座標").Cells(i - 1, 4).Value + h
+End Function
+
+Function func2(i) As String
+    If Worksheets("親").Cells(i - 2, 5).Value = 10 Then
+    h = 56.2
+    ElseIf Worksheets("親").Cells(i - 2, 5).Value = 8 Then
+    h = 70.5
+    ElseIf Worksheets("親").Cells(i - 2, 5).Value = 6 Then
+    h = 94
+    ElseIf Worksheets("親").Cells(i - 2, 5).Value = 4 Then
+    h = 141
+    End If
+ Worksheets("座標").Cells(i, 4).Value = Worksheets("座標").Cells(i - 2, 4).Value + h
+End Function
+
+
+Sub abc()
+
+Call aaa
+Call bbb
+Call ccc
+Call ddd
+
+End Sub
