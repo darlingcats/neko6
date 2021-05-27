@@ -11,7 +11,6 @@ Dim secname As String
 firname = ActiveWorkbook.Name
 
 Dim OpenFileName As String
-MsgBox "OS名：" & osname
 If osname Like "Windows*" Then
     'Windows用
     OpenFileName = Application.GetOpenFilename("Microsoft Excelブック,*.xls?")
