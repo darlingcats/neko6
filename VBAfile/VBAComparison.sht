@@ -5,16 +5,16 @@ Dim k As Long
 Dim x As Integer
 Dim maxrow As Long
 Dim maxroww As Long
-Dim firname As String
-Dim secname As String
+Dim firstname As String
+Dim secondname As String
 
-firname = ActiveWorkbook.Name
+firstname = ActiveWorkbook.Name
 
 Dim OpenFileName As String
 If osname Like "Windows*" Then
     'Windows用
     OpenFileName = Application.GetOpenFilename("Microsoft Excelブック,*.xls?")
-    Else
+Else
     'Mac用
     OpenFileName = Application.GetOpenFilename()
 End If
@@ -22,10 +22,10 @@ End If
 If OpenFileName <> "False" Then
     Workbooks.Open OpenFileName
     
-    secname = ActiveWorkbook.Name
+    secondname = ActiveWorkbook.Name
     
-    maxrow = Workbooks(firname).Worksheets(1).Cells(Rows.Count, 1).End(xlUp).Row
-    maxroww = Workbooks(secname).Worksheets(1).Cells(Rows.Count, 1).End(xlUp).Row
+    maxrow = Workbooks(firstname).Worksheets(1).Cells(Rows.Count, 1).End(xlUp).Row
+    maxroww = Workbooks(secondname).Worksheets(1).Cells(Rows.Count, 1).End(xlUp).Row
     i = 2
     k = 3
     
@@ -37,13 +37,13 @@ If OpenFileName <> "False" Then
         End If
     
         Dim Rng As Range
-            With Workbooks(secname).Worksheets(1)
-                Set Rng = .Range(.Cells(2, 1), .Cells(maxroww, 1)).Find(What:=Workbooks(firname).Worksheets(1).Cells(i, 1), LookIn:=xlValues, LookAt:=xlWhole)
+            With Workbooks(secondname).Worksheets(1)
+                Set Rng = .Range(.Cells(2, 1), .Cells(maxroww, 1)).Find(What:=Workbooks(firstname).Worksheets(1).Cells(i, 1), LookIn:=xlValues, LookAt:=xlWhole)
             End With
-            With Workbooks(firname).Worksheets(1)
+            With Workbooks(firstname).Worksheets(1)
                 If Not Rng Is Nothing Then
                     Do Until k > 35
-                        x = StrComp(.Cells(i, k), Workbooks(secname).Worksheets(1).Cells(Rng.Row, k))
+                        x = StrComp(.Cells(i, k), Workbooks(secondname).Worksheets(1).Cells(Rng.Row, k))
                         If x <> 0 Then
                             .Cells(i, k).Interior.ColorIndex = 40
                         End If
@@ -61,11 +61,10 @@ If OpenFileName <> "False" Then
     Loop
     
     MsgBox "比較に成功しました！"
-    Workbooks(firname).Activate
+    Workbooks(firstname).Activate
     
 Else
     MsgBox "キャンセルされました"
 End If
 
 End Sub
-
