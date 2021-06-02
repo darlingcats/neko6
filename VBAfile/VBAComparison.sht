@@ -62,7 +62,7 @@ Sub Comparison()
     Loop
     
     MsgBox "比較に成功しました！"
-    Workbooks(dest).Close
+    Workbooks(dest).Close SaveChanges:=False
     Workbooks(src).Activate
     Range(Columns(1), Columns(maxcol)).AutoFit '列幅を自動調整
     Cells(1, 1).Select
