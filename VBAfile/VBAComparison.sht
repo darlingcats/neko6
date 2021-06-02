@@ -65,6 +65,11 @@ Sub Comparison()
     Workbooks(dest).Close SaveChanges:=False
     Workbooks(src).Activate
     Range(Columns(1), Columns(maxcol)).AutoFit '列幅を自動調整
+    With Application
+        .WindowState = xlNormal   '標準
+        .Width = 400
+        .Height = 300
+    End With
     Cells(1, 1).Select
     filePath = Application.GetSaveAsFilename ' ダイアログを表示
     If filePath = "False" Then
