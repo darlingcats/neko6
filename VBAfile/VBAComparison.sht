@@ -41,6 +41,9 @@ Sub Comparison()
             With Workbooks(src).Worksheets(1)
                 If Not Rng Is Nothing Then
                     Do Until k > maxcol
+                        If IsError(Workbooks(dest).Worksheets(1).Cells(Rng.Row, k).Value) Then
+                            Workbooks(dest).Worksheets(1).Cells(Rng.Row, k).Value = ""
+                        End If
                         x = StrComp(.Cells(i, k), Workbooks(dest).Worksheets(1).Cells(Rng.Row, k))
                         If x <> 0 Then
                             .Cells(i, k).Interior.ColorIndex = 40
