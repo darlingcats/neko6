@@ -11,13 +11,15 @@ Sub Comparison()
     Dim src As String
     Dim dest As String
     Dim filePath As String
+    Dim osname As String
+    osname = Application.OperatingSystem
 
     MsgBox "比較元（新しいデータ）を開いてください"
-    Call opfn
+    Call opfn(osname)
     src = ActiveWorkbook.Name '比較元の名前
 
     MsgBox "比較先（古いデータ）を開いてください"
-    Call opfn
+    Call opfn(osname)
     dest = ActiveWorkbook.Name '比較先の名前
     
     srcmaxrow = Workbooks(src).Worksheets(1).Cells(Rows.Count, 1).End(xlUp).Row
@@ -67,22 +69,28 @@ Sub Comparison()
     Range(Columns(1), Columns(maxcol)).AutoFit '列幅を自動調整
     With Application
         .WindowState = xlNormal   '標準
-        .Width = 400
-        .Height = 300
+        If osname Like "Windows*" Then 'Macだとウィンドウサイズを設定できない？
+            .Width = 1200
+            .Height = 800
+        End If
     End With
     Cells(1, 1).Select
-    filePath = Application.GetSaveAsFilename ' ダイアログを表示
+    If osname Like "Windows*" Then
+        'Windows用
+        filePath = Application.GetSaveAsFilename(InitialFileName:="差分.xlsx", FileFilter:="Excelファイル,*.xlsx") ' ダイアログを表示
+    Else
+        'Mac用
+        filePath = Application.GetSaveAsFilename() ' ダイアログを表示
+    End If
     If filePath = "False" Then
         Exit Sub ' キャンセル
     End If
-    Call Workbooks(src).SaveAs(filePath) ' 名前を付けて保存
+    Workbooks(src).SaveAs filePath ' 名前を付けて保存
     
 End Sub
 
-Function opfn() As String
-    Dim osname As String
+Function opfn(osname) As String
     Dim OpenFileName As String
-    osname = Application.OperatingSystem
     If osname Like "Windows*" Then
         'Windows用
         OpenFileName = Application.GetOpenFilename("Microsoft Excelブック,*.xls?")
