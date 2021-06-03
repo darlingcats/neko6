@@ -7,7 +7,8 @@ Sub Comparison()
     Dim x As Integer
     Dim srcmaxrow As Long
     Dim destmaxrow As Long
-    Dim maxcol As Long
+    Dim srcmaxcol As Long
+    Dim destmaxcol As Long
     Dim src As String
     Dim dest As String
     Dim filePath As String
@@ -24,7 +25,13 @@ Sub Comparison()
     
     srcmaxrow = Workbooks(src).Worksheets(1).Cells(Rows.Count, 1).End(xlUp).Row
     destmaxrow = Workbooks(dest).Worksheets(1).Cells(Rows.Count, 1).End(xlUp).Row
-    maxcol = Workbooks(src).Worksheets(1).Cells(1, Columns.Count).End(xlToLeft).Column
+    srcmaxcol = Workbooks(src).Worksheets(1).Cells(1, Columns.Count).End(xlToLeft).Column
+    destmaxcol = Workbooks(dest).Worksheets(1).Cells(1, Columns.Count).End(xlToLeft).Column
+
+    If srcmaxcol <> destmaxcol Then
+        MsgBox "データの数が違います"
+        End
+    End If
 
     i = 2 '2行目から見る
     k = 3 '3列目から見る
@@ -42,7 +49,7 @@ Sub Comparison()
             End With
             With Workbooks(src).Worksheets(1)
                 If Not Rng Is Nothing Then
-                    Do Until k > maxcol
+                    Do Until k > srcmaxcol
                         If IsError(Workbooks(dest).Worksheets(1).Cells(Rng.Row, k).Value) Then
                             Workbooks(dest).Worksheets(1).Cells(Rng.Row, k).Value = ""
                         End If
@@ -66,7 +73,7 @@ Sub Comparison()
     MsgBox "比較に成功しました！"
     Workbooks(dest).Close SaveChanges:=False
     Workbooks(src).Activate
-    Range(Columns(1), Columns(maxcol)).AutoFit '列幅を自動調整
+    Range(Columns(1), Columns(srcmaxcol)).AutoFit '列幅を自動調整
     With Application
         .WindowState = xlNormal   '標準
         If osname Like "Windows*" Then 'Macだとウィンドウサイズを設定できない？
