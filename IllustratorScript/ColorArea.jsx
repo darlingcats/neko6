@@ -81,7 +81,7 @@ if (rtType == 1) {
   }
 
   function areaRatio(dSpace) {
-    var k, area, wid, hei, gArea, absolute, result;
+    var k, i, area, wid, hei, gArea, absolute, result;
     k = 0;
     for (i = 0; i < app.selection.length; i++) {
       area = app.selection[i].area;
