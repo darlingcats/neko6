@@ -31,8 +31,6 @@ var b1 = objPal.add("button", [x2 - 80, y2 - 40, x2 - 10, y2 - 15], "変更", {
 });
 //　ダイアログ表示
 objPal.center();
-//　ダイアログボックスの戻り値から条件分岐して、値を表示
-
 
 b1.onClick = function () {
     var bt = new BridgeTalk;
