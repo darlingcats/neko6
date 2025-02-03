@@ -10,7 +10,7 @@ x2 = 170;
 y2 = 50;
 
 //　ダイアログ作成
-var objPal = new Window("palette", "コピー元のレイヤー内にペースト", [
+var objPal = new Window("palette", "コピー元のレイヤーにペースト", [
     x1,
     y1,
     x2,
